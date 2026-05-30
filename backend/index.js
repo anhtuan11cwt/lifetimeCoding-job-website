@@ -2,6 +2,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import companyRouter from "./routes/company.route.js";
+import jobRouter from "./routes/job.route.js";
 import userRouter from "./routes/user.route.js";
 import connectDB from "./utils/db.js";
 
@@ -30,6 +32,8 @@ app.get("/home", (_req, res) => {
 });
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/company", companyRouter);
+app.use("/api/v1/job", jobRouter);
 
 // Kết nối cơ sở dữ liệu và khởi động máy chủ
 connectDB().then(() => {

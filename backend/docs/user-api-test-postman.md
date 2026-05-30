@@ -148,7 +148,7 @@
   ```
 
 ### 3. Đăng xuất người dùng
-- **Method:** POST
+- **Method:** GET
 - **URL:** `http://localhost:8000/api/v1/user/logout`
 
 #### Headers / Cookies

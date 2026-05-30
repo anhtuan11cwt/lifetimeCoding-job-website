@@ -151,44 +151,51 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
 
-    if (!fullName || !email || !phoneNumber) {
-      return res.status(400).json({
-        message: "Thiếu thông tin",
+    const userId = req.id; // từ middleware xác thực
+
+    // Tìm người dùng hiện tại
+    const currentUser = await User.findById(userId);
+    if (!currentUser) {
+      return res.status(404).json({
+        message: "Người dùng không tồn tại",
         success: false,
       });
     }
 
-    let skillsArray;
-    if (skills) {
-      skillsArray = skills.split(",").map((skill) => skill.trim());
+    // Cập nhật từng trường một cách độc lập
+    if (fullName) {
+      currentUser.fullName = fullName;
     }
 
-    const userId = req.id; // từ middleware xác thực
+    if (email) {
+      currentUser.email = email;
+    }
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      {
-        email,
-        fullName,
-        phoneNumber,
-        profile: {
-          bio,
-          skills: skillsArray,
-        },
-      },
-      { new: true },
-    );
+    if (phoneNumber) {
+      currentUser.phoneNumber = phoneNumber;
+    }
+
+    if (bio) {
+      currentUser.profile.bio = bio;
+    }
+
+    if (skills) {
+      const skillsArray = skills.split(",").map((skill) => skill.trim());
+      currentUser.profile.skills = skillsArray;
+    }
+
+    await currentUser.save();
 
     return res.status(200).json({
       message: "Cập nhật hồ sơ thành công",
       success: true,
       user: {
-        _id: user._id,
-        email: user.email,
-        fullName: user.fullName,
-        phoneNumber: user.phoneNumber,
-        profile: user.profile,
-        role: user.role,
+        _id: currentUser._id,
+        email: currentUser.email,
+        fullName: currentUser.fullName,
+        phoneNumber: currentUser.phoneNumber,
+        profile: currentUser.profile,
+        role: currentUser.role,
       },
     });
   } catch (error) {
