@@ -13,11 +13,11 @@
   "registries": {},
   "rsc": false,
   "rtl": false,
-  "style": "radix-rhea",
+  "style": "radix-maia",
   "tailwind": {
     "baseColor": "neutral",
     "config": "",
-    "css": "src/App.css",
+    "css": "src/index.css",
     "cssVariables": true,
     "prefix": ""
   },
