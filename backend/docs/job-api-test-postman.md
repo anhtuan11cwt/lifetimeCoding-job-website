@@ -93,7 +93,7 @@
 - **Query Params (tuỳ chọn):** `?keyword=lập trình`
 
 #### Headers
-- **Authorization Headers:** Yêu cầu cookie `token` hợp lệ (từ middleware `isAuthenticated`)
+- **Authorization Headers:** Không yêu cầu (endpoint công khai)
 
 #### Response
 - **Success (200 OK):**
@@ -125,13 +125,6 @@
   ```json
   {
     "message": "Không tìm thấy công việc",
-    "success": false
-  }
-  ```
-- **Error (401 - Chưa xác thực):**
-  ```json
-  {
-    "message": "Người dùng chưa xác thực",
     "success": false
   }
   ```
@@ -259,7 +252,7 @@
 - **URL:** `http://localhost:8000/api/v1/job/get/:id`
 
 #### Headers
-- **Authorization Headers:** Yêu cầu cookie `token` hợp lệ (từ middleware `isAuthenticated`)
+- **Authorization Headers:** Không yêu cầu (endpoint công khai)
 
 #### Response
 - **Success (200 OK):**
@@ -286,13 +279,6 @@
   ```json
   {
     "message": "Không tìm thấy công việc",
-    "success": false
-  }
-  ```
-- **Error (401 - Chưa xác thực):**
-  ```json
-  {
-    "message": "Người dùng chưa xác thực",
     "success": false
   }
   ```
@@ -328,11 +314,11 @@
   - **Expected Result:** 404 + "Không tìm thấy công việc"
 
 - **Test Case:** Lấy tất cả công việc thành công
-  - **Input:** Cookie token hợp lệ
+  - **Input:** Không yêu cầu xác thực
   - **Expected Result:** 200 + danh sách công việc (có company populated)
 
 - **Test Case:** Lấy tất cả công việc với keyword
-  - **Input:** `?keyword=lập trình` + cookie token hợp lệ
+  - **Input:** `?keyword=lập trình`
   - **Expected Result:** 200 + danh sách công việc khớp keyword
 
 - **Test Case:** Lấy công việc của admin thành công
@@ -340,13 +326,9 @@
   - **Expected Result:** 200 + danh sách công việc do người dùng tạo
 
 - **Test Case:** Lấy công việc theo ID thành công
-  - **Input:** ID hợp lệ + cookie token hợp lệ
+  - **Input:** ID hợp lệ
   - **Expected Result:** 200 + thông tin công việc
 
 - **Test Case:** Lấy công việc với ID không tồn tại
   - **Input:** ID không hợp lệ
   - **Expected Result:** 404 + "Không tìm thấy công việc"
-
-- **Test Case:** Lấy công việc khi chưa đăng nhập
-  - **Input:** Không gửi cookie token
-  - **Expected Result:** 401 + "Người dùng chưa xác thực"

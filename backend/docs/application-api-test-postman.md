@@ -30,21 +30,21 @@
       "applicant": "60d5ec49f1b2c51f3c8e4d2a",
       "status": "pending"
     },
-    "message": "Job applied successfully",
+    "message": "Ứng tuyển thành công",
     "success": true
   }
   ```
 - **Error (400 - Đã ứng tuyển):**
   ```json
   {
-    "message": "You have already applied for this job",
+    "message": "Bạn đã ứng tuyển công việc này rồi",
     "success": false
   }
   ```
 - **Error (404 - Không tìm thấy công việc):**
   ```json
   {
-    "message": "Job not found",
+    "message": "Không tìm thấy công việc",
     "success": false
   }
   ```
@@ -58,7 +58,7 @@
 - **Error (500 - Lỗi máy chủ):**
   ```json
   {
-    "message": "Internal server error",
+    "message": "Lỗi máy chủ nội bộ",
     "success": false
   }
   ```
@@ -97,7 +97,7 @@
 - **Error (404 - Không có ứng tuyển):**
   ```json
   {
-    "message": "No applications",
+    "message": "Không có đơn ứng tuyển nào",
     "success": false
   }
   ```
@@ -111,7 +111,7 @@
 - **Error (500 - Lỗi máy chủ):**
   ```json
   {
-    "message": "Internal server error",
+    "message": "Lỗi máy chủ nội bộ",
     "success": false
   }
   ```
@@ -150,7 +150,7 @@
 - **Error (404 - Không tìm thấy công việc):**
   ```json
   {
-    "message": "Job not found",
+    "message": "Không tìm thấy công việc",
     "success": false
   }
   ```
@@ -164,7 +164,7 @@
 - **Error (500 - Lỗi máy chủ):**
   ```json
   {
-    "message": "Internal server error",
+    "message": "Lỗi máy chủ nội bộ",
     "success": false
   }
   ```
@@ -194,21 +194,21 @@
 - **Success (200 OK):**
   ```json
   {
-    "message": "Status updated successfully",
+    "message": "Cập nhật trạng thái thành công",
     "success": true
   }
   ```
 - **Error (400 - Thiếu trạng thái):**
   ```json
   {
-    "message": "Status is required",
+    "message": "Trạng thái là bắt buộc",
     "success": false
   }
   ```
 - **Error (404 - Không tìm thấy đơn ứng tuyển):**
   ```json
   {
-    "message": "Application not found",
+    "message": "Không tìm thấy đơn ứng tuyển",
     "success": false
   }
   ```
@@ -222,7 +222,7 @@
 - **Error (500 - Lỗi máy chủ):**
   ```json
   {
-    "message": "Internal server error",
+    "message": "Lỗi máy chủ nội bộ",
     "success": false
   }
   ```
@@ -236,11 +236,11 @@
 
 - **Test Case:** Ứng tuyển công việc đã ứng tuyển trước đó
   - **Input:** ID công việc đã ứng tuyển
-  - **Expected Result:** 400 + "You have already applied for this job"
+  - **Expected Result:** 400 + "Bạn đã ứng tuyển công việc này rồi"
 
 - **Test Case:** Ứng tuyển công việc không tồn tại
   - **Input:** ID công việc không hợp lệ
-  - **Expected Result:** 404 + "Job not found"
+  - **Expected Result:** 404 + "Không tìm thấy công việc"
 
 - **Test Case:** Ứng tuyển khi chưa đăng nhập
   - **Input:** Không gửi cookie token
@@ -252,7 +252,7 @@
 
 - **Test Case:** Lấy danh sách đã ứng tuyển khi chưa có ứng tuyển nào
   - **Input:** Cookie token hợp lệ (user chưa apply job nào)
-  - **Expected Result:** 404 + "No applications"
+  - **Expected Result:** 404 + "Không có đơn ứng tuyển nào"
 
 - **Test Case:** Lấy danh sách ứng viên thành công
   - **Input:** ID công việc hợp lệ + cookie token hợp lệ
@@ -260,16 +260,16 @@
 
 - **Test Case:** Lấy danh sách ứng viên với ID không tồn tại
   - **Input:** ID công việc không hợp lệ
-  - **Expected Result:** 404 + "Job not found"
+  - **Expected Result:** 404 + "Không tìm thấy công việc"
 
 - **Test Case:** Cập nhật trạng thái ứng tuyển thành công
   - **Input:** ID application hợp lệ + status mới + cookie token hợp lệ
-  - **Expected Result:** 200 + "Status updated successfully"
+  - **Expected Result:** 200 + "Cập nhật trạng thái thành công"
 
 - **Test Case:** Cập nhật trạng thái thiếu status
   - **Input:** Không gửi trường status
-  - **Expected Result:** 400 + "Status is required"
+  - **Expected Result:** 400 + "Trạng thái là bắt buộc"
 
 - **Test Case:** Cập nhật trạng thái với ID không tồn tại
   - **Input:** ID application không hợp lệ
-  - **Expected Result:** 404 + "Application not found"
+  - **Expected Result:** 404 + "Không tìm thấy đơn ứng tuyển"

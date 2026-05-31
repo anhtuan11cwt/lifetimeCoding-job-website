@@ -216,13 +216,6 @@
     }
   }
   ```
-- **Error (400 - Thiếu thông tin bắt buộc):**
-  ```json
-  {
-    "message": "Thiếu thông tin",
-    "success": false
-  }
-  ```
 - **Error (401 - Chưa xác thực):**
   ```json
   {
@@ -283,7 +276,3 @@
 - **Test Case:** Cập nhật hồ sơ khi chưa đăng nhập
   - **Input:** Không gửi cookie token
   - **Expected Result:** 401 + "Người dùng chưa xác thực"
-
-- **Test Case:** Cập nhật hồ sơ thiếu thông tin
-  - **Input:** Thiếu fullName, email hoặc phoneNumber
-  - **Expected Result:** 400 + "Thiếu thông tin"

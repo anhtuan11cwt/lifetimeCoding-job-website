@@ -221,6 +221,43 @@
   }
   ```
 
+### 5. Xoá công ty
+- **Method:** DELETE
+- **URL:** `http://localhost:8000/api/v1/company/delete/:id`
+
+#### Headers
+- **Authorization Headers:** Yêu cầu cookie `token` hợp lệ (từ middleware `isAuthenticated`)
+
+#### Response
+- **Success (200 OK):**
+  ```json
+  {
+    "message": "Xoá công ty thành công",
+    "success": true
+  }
+  ```
+- **Error (404 - Không tìm thấy):**
+  ```json
+  {
+    "message": "Không tìm thấy công ty",
+    "success": false
+  }
+  ```
+- **Error (401 - Chưa xác thực):**
+  ```json
+  {
+    "message": "Người dùng chưa xác thực",
+    "success": false
+  }
+  ```
+- **Error (500 - Lỗi máy chủ):**
+  ```json
+  {
+    "message": "Lỗi máy chủ nội bộ",
+    "success": false
+  }
+  ```
+
 ---
 ## Test Cases
 
@@ -261,5 +298,17 @@
   - **Expected Result:** 404 + "Không tìm thấy công ty"
 
 - **Test Case:** Cập nhật công ty khi chưa đăng nhập
+  - **Input:** Không gửi cookie token
+  - **Expected Result:** 401 + "Người dùng chưa xác thực"
+
+- **Test Case:** Xoá công ty thành công
+  - **Input:** ID hợp lệ + cookie token hợp lệ
+  - **Expected Result:** 200 + "Xoá công ty thành công"
+
+- **Test Case:** Xoá công ty với ID không tồn tại
+  - **Input:** ID không hợp lệ
+  - **Expected Result:** 404 + "Không tìm thấy công ty"
+
+- **Test Case:** Xoá công ty khi chưa đăng nhập
   - **Input:** Không gửi cookie token
   - **Expected Result:** 401 + "Người dùng chưa xác thực"
