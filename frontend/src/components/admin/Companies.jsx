@@ -23,21 +23,19 @@ const Companies = () => {
   );
 
   return (
-    <div>
-      <div className="max-w-6xl mx-auto my-10">
-        <div className="flex items-center justify-between my-5">
-          <Input
-            className="w-fit"
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Tìm theo tên công ty"
-            value={input}
-          />
-          <Button onClick={() => navigate("/admin/companies/create")}>
-            Công ty mới
-          </Button>
-        </div>
-        <CompaniesTable companies={filteredCompanies} />
+    <div className="max-w-6xl mx-auto my-10 px-4">
+      <div className="flex items-center justify-between my-5">
+        <Input
+          className="w-fit"
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Tìm theo tên công ty"
+          value={input}
+        />
+        <Button onClick={() => navigate("/admin/companies/create")}>
+          Công ty mới
+        </Button>
       </div>
+      <CompaniesTable companies={filteredCompanies} />
     </div>
   );
 };

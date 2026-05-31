@@ -95,81 +95,79 @@ const CompanySetup = () => {
   };
 
   return (
-    <div>
-      <div className="max-w-xl mx-auto my-10">
-        <Button
-          className="mb-5"
-          onClick={() => navigate("/admin/companies")}
-          variant="outline"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Quay lại
-        </Button>
+    <div className="max-w-xl mx-auto my-10 px-4">
+      <Button
+        className="mb-5"
+        onClick={() => navigate("/admin/companies")}
+        variant="outline"
+      >
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Quay lại
+      </Button>
 
-        <h1 className="font-bold text-2xl mb-6">Thiết lập công ty</h1>
+      <h1 className="font-bold text-2xl mb-6">Thiết lập công ty</h1>
 
-        <form className="space-y-4" onSubmit={submitHandler}>
-          <div className="space-y-2">
-            <Label>Tên công ty</Label>
-            <Input
-              disabled
-              name="name"
-              value={touched.name ? input.name : resolvedInput.name}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Mô tả</Label>
-            <Input
-              name="description"
-              onChange={changeEventHandler}
-              value={
-                touched.description
-                  ? input.description
-                  : resolvedInput.description
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Website</Label>
-            <Input
-              name="website"
-              onChange={changeEventHandler}
-              value={touched.website ? input.website : resolvedInput.website}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Địa điểm</Label>
-            <Input
-              name="location"
-              onChange={changeEventHandler}
-              value={touched.location ? input.location : resolvedInput.location}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Logo</Label>
-            <Input accept="image/*" onChange={changeFileHandler} type="file" />
-            {(logoPreview || singleCompany?.logo) && (
-              <div className="mt-2">
-                <img
-                  alt="Logo preview"
-                  className="object-contain rounded border size-24"
-                  src={logoPreview || singleCompany?.logo}
-                />
-              </div>
-            )}
-          </div>
-
-          {loading ? (
-            <Button className="w-full" disabled>
-              Đang lưu...
-            </Button>
-          ) : (
-            <Button className="w-full" type="submit">
-              Cập nhật
-            </Button>
+      <form className="space-y-4" onSubmit={submitHandler}>
+        <div className="space-y-2">
+          <Label>Tên công ty</Label>
+          <Input
+            disabled
+            name="name"
+            value={touched.name ? input.name : resolvedInput.name}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Mô tả</Label>
+          <Input
+            name="description"
+            onChange={changeEventHandler}
+            value={
+              touched.description
+                ? input.description
+                : resolvedInput.description
+            }
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Website</Label>
+          <Input
+            name="website"
+            onChange={changeEventHandler}
+            value={touched.website ? input.website : resolvedInput.website}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Địa điểm</Label>
+          <Input
+            name="location"
+            onChange={changeEventHandler}
+            value={touched.location ? input.location : resolvedInput.location}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Logo</Label>
+          <Input accept="image/*" onChange={changeFileHandler} type="file" />
+          {(logoPreview || singleCompany?.logo) && (
+            <div className="mt-2">
+              <img
+                alt="Logo preview"
+                className="object-contain rounded border size-24"
+                src={logoPreview || singleCompany?.logo}
+              />
+            </div>
           )}
-        </form>
-      </div>
+        </div>
+
+        {loading ? (
+          <Button className="w-full" disabled>
+            Đang lưu...
+          </Button>
+        ) : (
+          <Button className="w-full" type="submit">
+            Cập nhật
+          </Button>
+        )}
+      </form>
     </div>
   );
 };

@@ -73,7 +73,7 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
   };
 
   return (
-    <div className="mx-auto my-10 max-w-3xl">
+    <div className="mx-auto my-10 max-w-3xl px-4">
       <Button
         className="mb-5"
         onClick={() => navigate("/admin/jobs")}
@@ -85,7 +85,10 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
 
       <h1 className="mb-6 text-2xl font-bold">Chỉnh sửa công việc</h1>
 
-      <form className="grid grid-cols-2 gap-4" onSubmit={submitHandler}>
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        onSubmit={submitHandler}
+      >
         <div className="space-y-2">
           <Label>Tiêu đề</Label>
           <Input
@@ -160,7 +163,7 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           {loading ? (
             <Button className="w-full" disabled>
               Đang cập nhật...

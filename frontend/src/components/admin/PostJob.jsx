@@ -69,133 +69,134 @@ const PostJob = () => {
   };
 
   return (
-    <div>
-      <div className="max-w-3xl mx-auto my-10">
-        <h1 className="font-bold text-2xl mb-6">Đăng tuyển công việc mới</h1>
+    <div className="max-w-3xl mx-auto my-10 px-4">
+      <h1 className="font-bold text-2xl mb-6">Đăng tuyển công việc mới</h1>
 
-        {companies.length === 0 && (
-          <p className="text-red-500 mb-4">
-            Bạn cần tạo công ty trước khi đăng tuyển việc làm.
-          </p>
-        )}
+      {companies.length === 0 && (
+        <p className="text-red-500 mb-4">
+          Bạn cần tạo công ty trước khi đăng tuyển việc làm.
+        </p>
+      )}
 
-        <form className="grid grid-cols-2 gap-4" onSubmit={submitHandler}>
-          <div className="space-y-2">
-            <Label>Tiêu đề</Label>
-            <Input
-              name="title"
-              onChange={changeEventHandler}
-              placeholder="Frontend Developer"
-              value={input.title}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Mô tả</Label>
-            <Input
-              name="description"
-              onChange={changeEventHandler}
-              placeholder="Mô tả công việc"
-              value={input.description}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Yêu cầu</Label>
-            <Input
-              name="requirements"
-              onChange={changeEventHandler}
-              placeholder="ReactJS, NodeJS"
-              value={input.requirements}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Lương (triệu)</Label>
-            <Input
-              name="salary"
-              onChange={changeEventHandler}
-              placeholder="15"
-              type="number"
-              value={input.salary}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Địa điểm</Label>
-            <Input
-              name="location"
-              onChange={changeEventHandler}
-              placeholder="Hà Nội"
-              value={input.location}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Loại hình</Label>
-            <Select
-              onValueChange={(val) => setInput({ ...input, jobType: val })}
-              value={input.jobType}
-            >
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        onSubmit={submitHandler}
+      >
+        <div className="space-y-2">
+          <Label>Tiêu đề</Label>
+          <Input
+            name="title"
+            onChange={changeEventHandler}
+            placeholder="Frontend Developer"
+            value={input.title}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Mô tả</Label>
+          <Input
+            name="description"
+            onChange={changeEventHandler}
+            placeholder="Mô tả công việc"
+            value={input.description}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Yêu cầu</Label>
+          <Input
+            name="requirements"
+            onChange={changeEventHandler}
+            placeholder="ReactJS, NodeJS"
+            value={input.requirements}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Lương (triệu)</Label>
+          <Input
+            name="salary"
+            onChange={changeEventHandler}
+            placeholder="15"
+            type="number"
+            value={input.salary}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Địa điểm</Label>
+          <Input
+            name="location"
+            onChange={changeEventHandler}
+            placeholder="Hà Nội"
+            value={input.location}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Loại hình</Label>
+          <Select
+            onValueChange={(val) => setInput({ ...input, jobType: val })}
+            value={input.jobType}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Chọn loại hình" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Full-time">Toàn thời gian</SelectItem>
+              <SelectItem value="Part-time">Bán thời gian</SelectItem>
+              <SelectItem value="Internship">Thực tập</SelectItem>
+              <SelectItem value="Contract">Hợp đồng</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label>Kinh nghiệm (năm)</Label>
+          <Input
+            name="experience"
+            onChange={changeEventHandler}
+            placeholder="2"
+            type="number"
+            value={input.experience}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>Số lượng vị trí</Label>
+          <Input
+            name="position"
+            onChange={changeEventHandler}
+            placeholder="5"
+            type="number"
+            value={input.position}
+          />
+        </div>
+        <div className="md:col-span-2 space-y-2">
+          <Label>Công ty</Label>
+          {companies.length > 0 ? (
+            <Select onValueChange={selectChangeHandler} value={companyId}>
               <SelectTrigger>
-                <SelectValue placeholder="Chọn loại hình" />
+                <SelectValue placeholder="Chọn công ty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Full-time">Toàn thời gian</SelectItem>
-                <SelectItem value="Part-time">Bán thời gian</SelectItem>
-                <SelectItem value="Internship">Thực tập</SelectItem>
-                <SelectItem value="Contract">Hợp đồng</SelectItem>
+                {companies.map((company) => (
+                  <SelectItem key={company._id} value={company._id}>
+                    {company.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-          </div>
-          <div className="space-y-2">
-            <Label>Kinh nghiệm (năm)</Label>
-            <Input
-              name="experience"
-              onChange={changeEventHandler}
-              placeholder="2"
-              type="number"
-              value={input.experience}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Số lượng vị trí</Label>
-            <Input
-              name="position"
-              onChange={changeEventHandler}
-              placeholder="5"
-              type="number"
-              value={input.position}
-            />
-          </div>
-          <div className="col-span-2 space-y-2">
-            <Label>Công ty</Label>
-            {companies.length > 0 ? (
-              <Select onValueChange={selectChangeHandler} value={companyId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Chọn công ty" />
-                </SelectTrigger>
-                <SelectContent>
-                  {companies.map((company) => (
-                    <SelectItem key={company._id} value={company._id}>
-                      {company.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <p className="text-sm text-red-500">Vui lòng tạo công ty trước</p>
-            )}
-          </div>
+          ) : (
+            <p className="text-sm text-red-500">Vui lòng tạo công ty trước</p>
+          )}
+        </div>
 
-          <div className="col-span-2">
-            {loading ? (
-              <Button className="w-full" disabled>
-                Đang đăng tuyển...
-              </Button>
-            ) : (
-              <Button className="w-full" type="submit">
-                Đăng tuyển
-              </Button>
-            )}
-          </div>
-        </form>
-      </div>
+        <div className="md:col-span-2">
+          {loading ? (
+            <Button className="w-full" disabled>
+              Đang đăng tuyển...
+            </Button>
+          ) : (
+            <Button className="w-full" type="submit">
+              Đăng tuyển
+            </Button>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

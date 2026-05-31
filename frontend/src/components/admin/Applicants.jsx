@@ -29,13 +29,11 @@ const Applicants = () => {
   }, [params.id, dispatch]);
 
   return (
-    <div>
-      <div className="max-w-6xl mx-auto my-10">
-        <h1 className="font-bold text-xl my-5">
-          Ứng viên ({applicants?.applications?.length || 0})
-        </h1>
-        <ApplicantsTable />
-      </div>
+    <div className="max-w-6xl mx-auto my-10 px-4">
+      <h1 className="font-bold text-xl my-5">
+        Ứng viên ({applicants?.applications?.length || 0})
+      </h1>
+      <ApplicantsTable />
     </div>
   );
 };

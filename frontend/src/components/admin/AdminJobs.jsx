@@ -19,21 +19,19 @@ const AdminJobs = () => {
   );
 
   return (
-    <div>
-      <div className="max-w-6xl mx-auto my-10">
-        <div className="flex items-center justify-between my-5">
-          <Input
-            className="w-fit"
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Tìm theo tên công việc hoặc công ty"
-            value={input}
-          />
-          <Button onClick={() => navigate("/admin/jobs/create")}>
-            Đăng tuyển mới
-          </Button>
-        </div>
-        <AdminJobsTable jobs={filteredJobs} />
+    <div className="max-w-6xl mx-auto my-10 px-4">
+      <div className="flex items-center justify-between my-5">
+        <Input
+          className="w-fit"
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Tìm theo tên công việc hoặc công ty"
+          value={input}
+        />
+        <Button onClick={() => navigate("/admin/jobs/create")}>
+          Đăng tuyển mới
+        </Button>
       </div>
+      <AdminJobsTable jobs={filteredJobs} />
     </div>
   );
 };
