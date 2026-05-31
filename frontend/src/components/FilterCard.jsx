@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
@@ -16,7 +17,17 @@ const filterData = [
   },
 ];
 
-const FilterCard = () => {
+const FilterCard = ({ onFilterChange }) => {
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const handleFilterChange = (filterType, value) => {
+    const newFilters = { ...selectedFilters, [filterType]: value };
+    setSelectedFilters(newFilters);
+    if (onFilterChange) {
+      onFilterChange(newFilters);
+    }
+  };
+
   return (
     <div className="w-full bg-white p-4 rounded-md">
       <h1 className="font-bold text-lg">Lọc việc làm</h1>
@@ -24,7 +35,12 @@ const FilterCard = () => {
       {filterData.map((data) => (
         <div key={data.filterType}>
           <h1 className="font-bold text-lg">{data.filterType}</h1>
-          <RadioGroup>
+          <RadioGroup
+            onValueChange={(value) =>
+              handleFilterChange(data.filterType, value)
+            }
+            value={selectedFilters[data.filterType] || ""}
+          >
             {data.array.map((item) => (
               <div className="flex items-center space-x-2 my-2" key={item}>
                 <RadioGroupItem

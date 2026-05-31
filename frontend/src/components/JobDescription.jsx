@@ -9,6 +9,7 @@ import { setSingleJob } from "@/redux/jobSlice";
 import {
   APPLICATION_API_END_POINT,
   JOB_API_END_POINT,
+  JOB_TYPE_MAP,
 } from "@/utils/constants";
 
 const JobDescription = () => {
@@ -80,7 +81,7 @@ const JobDescription = () => {
               {singleJob.position} Vị trí
             </Badge>
             <Badge className="text-[#F83002] font-bold" variant="ghost">
-              {singleJob.jobType}
+              {JOB_TYPE_MAP[singleJob.jobType] || singleJob.jobType}
             </Badge>
             <Badge className="text-[#7209b7] font-bold" variant="ghost">
               {singleJob.salary} triệu

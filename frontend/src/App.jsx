@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import Navbar from "@/components/shared/Navbar";
 
 const AdminJobs = lazy(() => import("@/components/admin/AdminJobs"));
@@ -32,13 +33,62 @@ function App() {
           <Route element={<JobDescription />} path="/description/:id" />
 
           {/* Admin Routes */}
-          <Route element={<Companies />} path="/admin/companies" />
-          <Route element={<CompanyCreate />} path="/admin/companies/create" />
-          <Route element={<CompanySetup />} path="/admin/companies/:id" />
-          <Route element={<AdminJobs />} path="/admin/jobs" />
-          <Route element={<PostJob />} path="/admin/jobs/create" />
-          <Route element={<JobSetup />} path="/admin/jobs/:id" />
-          <Route element={<Applicants />} path="/admin/jobs/:id/applicants" />
+          <Route
+            element={
+              <ProtectedRoute>
+                <Companies />
+              </ProtectedRoute>
+            }
+            path="/admin/companies"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <CompanyCreate />
+              </ProtectedRoute>
+            }
+            path="/admin/companies/create"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <CompanySetup />
+              </ProtectedRoute>
+            }
+            path="/admin/companies/:id"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <AdminJobs />
+              </ProtectedRoute>
+            }
+            path="/admin/jobs"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <PostJob />
+              </ProtectedRoute>
+            }
+            path="/admin/jobs/create"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <JobSetup />
+              </ProtectedRoute>
+            }
+            path="/admin/jobs/:id"
+          />
+          <Route
+            element={
+              <ProtectedRoute>
+                <Applicants />
+              </ProtectedRoute>
+            }
+            path="/admin/jobs/:id/applicants"
+          />
 
           <Route element={<Navigate to="/" />} path="*" />
         </Routes>

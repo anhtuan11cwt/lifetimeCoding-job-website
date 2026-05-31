@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -8,50 +9,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const appliedJobs = [
-  {
-    company: "Microsoft",
-    date: "27-12-2024",
-    role: "Front-end Developer",
-    status: "Selected",
-  },
-  {
-    company: "Google",
-    date: "25-12-2024",
-    role: "Back-end Developer",
-    status: "Pending",
-  },
-  {
-    company: "Amazon",
-    date: "20-12-2024",
-    role: "Full Stack Developer",
-    status: "Rejected",
-  },
-  {
-    company: "Meta",
-    date: "18-12-2024",
-    role: "UI/UX Designer",
-    status: "Selected",
-  },
-];
+import { formatDate } from "@/utils/format";
 
 const statusVariant = {
+  Accepted: "default",
   Pending: "outline",
   Rejected: "destructive",
-  Selected: "default",
 };
 
-const translateStatus = (status) => {
-  const map = {
-    Pending: "Đang chờ",
-    Rejected: "Từ chối",
-    Selected: "Đã chọn",
-  };
-  return map[status] || status;
+const statusLabel = {
+  Accepted: "Đã duyệt",
+  Pending: "Đang chờ",
+  Rejected: "Từ chối",
 };
 
 const AppliedJobTable = () => {
+  const { allAppliedJobs } = useSelector((store) => store.job);
+
   return (
     <div>
       <h1 className="font-bold text-lg my-5">Công việc đã ứng tuyển</h1>
@@ -66,18 +40,26 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {appliedJobs.map((job) => (
-            <TableRow key={`${job.company}-${job.date}-${job.role}`}>
-              <TableCell>{job.date}</TableCell>
-              <TableCell>{job.role}</TableCell>
-              <TableCell>{job.company}</TableCell>
-              <TableCell className="text-center">
-                <Badge variant={statusVariant[job.status] || "default"}>
-                  {translateStatus(job.status)}
-                </Badge>
+          {allAppliedJobs && allAppliedJobs.length > 0 ? (
+            allAppliedJobs.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell>{formatDate(item.createdAt)}</TableCell>
+                <TableCell>{item.job?.title || "N/A"}</TableCell>
+                <TableCell>{item.job?.company?.name || "N/A"}</TableCell>
+                <TableCell className="text-center">
+                  <Badge variant={statusVariant[item.status] || "outline"}>
+                    {statusLabel[item.status] || item.status}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell className="text-center" colSpan={4}>
+                Chưa ứng tuyển công việc nào
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

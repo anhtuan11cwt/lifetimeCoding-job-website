@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { JOB_TYPE_MAP } from "@/utils/constants";
 
 const currentTime = Date.now();
 
@@ -53,7 +54,7 @@ const LatestJobCards = ({ job }) => {
           {job?.position || 0} Vị trí
         </Badge>
         <Badge className="font-bold text-[#F83002]" variant="ghost">
-          {job?.jobType || "Toàn thời gian"}
+          {JOB_TYPE_MAP[job?.jobType] || job?.jobType || "Toàn thời gian"}
         </Badge>
         <Badge className="font-bold text-[#7209b7]" variant="ghost">
           {job?.salary ? `${job.salary} triệu` : "Thỏa thuận"}

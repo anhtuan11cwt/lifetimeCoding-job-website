@@ -3,53 +3,61 @@ import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { JOB_TYPE_MAP } from "@/utils/constants";
+import { formatDate } from "@/utils/format";
 
-const Job = () => {
+const Job = ({ job }) => {
   const navigate = useNavigate();
+  const daysAgo = formatDate(job?.createdAt);
 
   return (
-    <div className="p-5 rounded-md bg-white border border-gray-100">
+    <div className="rounded-md border border-gray-100 bg-white p-5">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">2 ngày trước</p>
+        <p className="text-sm text-gray-500">{daysAgo}</p>
         <button type="button">
           <Bookmark className="text-gray-500" size={18} />
         </button>
       </div>
 
-      <div className="flex items-center gap-2 my-2">
+      <div className="my-2 flex items-center gap-2">
         <Avatar className="h-10 w-10">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage
+            src={job?.company?.logo || "https://github.com/shadcn.png"}
+          />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
-          <h1 className="font-medium text-lg">Tên công ty</h1>
-          <p className="text-sm text-gray-500">Việt Nam</p>
+          <h1 className="text-lg font-medium">
+            {job?.company?.name || "Tên công ty"}
+          </h1>
+          <p className="text-sm text-gray-500">{job?.location || "Việt Nam"}</p>
         </div>
       </div>
 
       <div>
-        <h1 className="font-bold text-lg my-2">Tiêu đề công việc</h1>
-        <p className="text-sm text-gray-600">
-          Mô tả ngắn về công việc với những chi tiết chính về vai trò và trách
-          nhiệm.
+        <h1 className="my-2 text-lg font-bold">
+          {job?.title || "Tiêu đề công việc"}
+        </h1>
+        <p className="line-clamp-2 text-sm text-gray-600">
+          {job?.description || "Mô tả ngắn về công việc."}
         </p>
       </div>
 
-      <div className="flex items-center gap-2 mt-4">
-        <Badge className="text-blue-700 font-bold" variant="ghost">
-          12 Vị trí
+      <div className="mt-4 flex items-center gap-2">
+        <Badge className="font-bold text-blue-700" variant="ghost">
+          {job?.position || 0} Vị trí
         </Badge>
-        <Badge className="text-[#F83002] font-bold" variant="ghost">
-          Bán thời gian
+        <Badge className="font-bold text-[#F83002]" variant="ghost">
+          {JOB_TYPE_MAP[job?.jobType] || job?.jobType || "Toàn thời gian"}
         </Badge>
-        <Badge className="text-[#7209b7] font-bold" variant="ghost">
-          15-20 triệu
+        <Badge className="font-bold text-[#7209b7]" variant="ghost">
+          {job?.salary ? `${job.salary} triệu` : "Thỏa thuận"}
         </Badge>
       </div>
 
-      <div className="flex items-center gap-4 mt-4">
+      <div className="mt-4 flex items-center gap-4">
         <Button
-          onClick={() => navigate("/description/1")}
+          onClick={() => navigate(`/description/${job?._id}`)}
           size="sm"
           variant="outline"
         >

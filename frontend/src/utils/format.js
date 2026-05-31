@@ -8,3 +8,9 @@ export function formatVND(amount) {
 export function formatSalaryRange(min, max) {
   return `${formatVND(min)} - ${formatVND(max)}`;
 }
+
+export function formatDate(dateString) {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("vi-VN");
+}
