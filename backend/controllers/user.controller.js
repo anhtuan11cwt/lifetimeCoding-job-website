@@ -20,7 +20,7 @@ export const register = async (req, res) => {
       const result = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
-            folder: "lifetimeCoding-job-website/profile",
+            folder: "lifetimeCoding-job-website/users/profile",
             resource_type: "image",
           },
           (err, uploadResult) => {

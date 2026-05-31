@@ -120,7 +120,7 @@ export const updateCompany = async (req, res) => {
       const result = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
-            folder: "lifetimeCoding-job-website/logo",
+            folder: "lifetimeCoding-job-website/companies/logo",
             resource_type: "image",
           },
           (err, uploadResult) => {
