@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -10,6 +12,9 @@ import connectDB from "./utils/db.js";
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -20,22 +25,24 @@ app.use(cookieParser());
 
 const corsOptions = {
   credentials: true,
-  origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
-// Route kiểm tra
-app.get("/home", (_req, res) => {
-  res.status(200).json({
-    message: "Máy chủ đang chạy thành công!",
-    success: true,
-  });
-});
-
+// API Routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/company", companyRouter);
 app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/application", applicationRouter);
+
+// Serve frontend build in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
+  });
+}
 
 // Kết nối cơ sở dữ liệu và khởi động máy chủ
 connectDB().then(() => {
