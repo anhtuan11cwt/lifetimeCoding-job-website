@@ -71,6 +71,68 @@ export const postJob = async (req, res) => {
     });
   }
 };
+// Cập nhật công việc
+export const updateJob = async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      requirements,
+      salary,
+      location,
+      jobType,
+      experience,
+      position,
+      company,
+    } = req.body;
+
+    const updateData = {
+      company,
+      description,
+      experience,
+      jobType,
+      location,
+      position,
+      requirements: requirements
+        ? Array.isArray(requirements)
+          ? requirements
+          : requirements.split(",").map((r) => r.trim())
+        : undefined,
+      salary: salary ? Number(salary) : undefined,
+      title,
+    };
+
+    // Remove undefined values
+    for (const key in updateData) {
+      if (updateData[key] === undefined) {
+        delete updateData[key];
+      }
+    }
+
+    const job = await Job.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Không tìm thấy công việc",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      job,
+      message: "Công việc đã được cập nhật",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Lỗi cập nhật công việc:", error);
+    return res.status(500).json({
+      message: "Lỗi máy chủ nội bộ",
+      success: false,
+    });
+  }
+};
 
 // Lấy tất cả công việc
 export const getAllJobs = async (req, res) => {
@@ -142,7 +204,9 @@ export const getJobById = async (req, res) => {
 export const getAdminJobs = async (req, res) => {
   try {
     const adminId = req.id;
-    const jobs = await Job.find({ created_by: adminId });
+    const jobs = await Job.find({ created_by: adminId }).populate({
+      path: "company",
+    });
 
     if (!jobs || jobs.length === 0) {
       return res.status(404).json({

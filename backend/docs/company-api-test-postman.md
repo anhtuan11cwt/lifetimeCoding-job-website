@@ -168,22 +168,19 @@
 
 #### Headers
 - **Key:** `Content-Type`
-- **Value:** `application/json`
+- **Value:** `multipart/form-data`
 - **Required:** Có
-- **Authorization Headers:** Yêu cầu cookie `token` hợp lệ (từ middleware `isAuthenticated`)
+- **Description:** Định dạng nội dung yêu cầu (hỗ trợ file upload)
+- **Authorization Headers:** Yêu cầu cookie `token` hợp lệ (từ middleware `isAuthenticated` và `singleUpload`)
 
 #### Body
-- **Format:** Raw JSON
-- **Content:**
-  ```json
-  {
-    "name": "Tech Corp Updated",
-    "description": "Công ty công nghệ hàng đầu",
-    "website": "https://techcorp.com",
-    "location": "Hà Nội"
-  }
-  ```
-  > *Tất cả các trường đều là tuỳ chọn.*
+- **Format:** Form-data
+- **Fields:**
+  - `name`: Tên công ty (string, tuỳ chọn)
+  - `description`: Mô tả (string, tuỳ chọn)
+  - `website`: Website (string, tuỳ chọn)
+  - `location`: Địa chỉ (string, tuỳ chọn)
+  - `file`: Logo công ty (file, tuỳ chọn)
 
 #### Response
 - **Success (200 OK):**
@@ -195,6 +192,7 @@
       "description": "Công ty công nghệ hàng đầu",
       "website": "https://techcorp.com",
       "location": "Hà Nội",
+      "logo": "https://cloudinary.com/image_url",
       "userId": "60d5ec49f1b2c51f3c8e4d2a"
     },
     "message": "Thông tin đã được cập nhật",

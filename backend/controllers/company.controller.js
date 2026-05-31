@@ -1,4 +1,11 @@
 import Company from "../models/company.model.js";
+import cloudinary from "../utils/cloudinary.js";
+
+const extractPublicIdFromUrl = (url) => {
+  if (!url) return null;
+  const matches = url.match(/\/upload\/v\d+\/(.+)\.\w+$/);
+  return matches ? matches[1] : null;
+};
 
 // Đăng ký công ty
 export const registerCompany = async (req, res) => {
@@ -98,10 +105,48 @@ export const updateCompany = async (req, res) => {
   try {
     const { name, description, website, location } = req.body;
 
-    const updateData = { description, location, name, website };
+    const updateData = {};
+
+    if (typeof description !== "undefined")
+      updateData.description = description;
+    if (typeof location !== "undefined") updateData.location = location;
+    if (typeof name !== "undefined") updateData.name = name;
+    if (typeof website !== "undefined") updateData.website = website;
+
+    if (req.file) {
+      const existingCompany = await Company.findById(req.params.id);
+      const oldLogoUrl = existingCompany?.logo;
+
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: "lifetimeCoding-job-website/logo",
+            resource_type: "image",
+          },
+          (err, uploadResult) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+
+            resolve(uploadResult);
+          },
+        );
+
+        stream.end(req.file.buffer);
+      });
+      updateData.logo = result.secure_url;
+
+      if (oldLogoUrl) {
+        const publicId = extractPublicIdFromUrl(oldLogoUrl);
+        if (publicId) {
+          await cloudinary.uploader.destroy(publicId);
+        }
+      }
+    }
 
     const company = await Company.findByIdAndUpdate(req.params.id, updateData, {
-      new: true,
+      returnDocument: "after",
     });
 
     if (!company) {
@@ -118,6 +163,40 @@ export const updateCompany = async (req, res) => {
     });
   } catch (error) {
     console.error("Lỗi cập nhật công ty:", error);
+    return res.status(500).json({
+      message: "Lỗi máy chủ nội bộ",
+      success: false,
+    });
+  }
+};
+
+// Xoá công ty
+export const deleteCompany = async (req, res) => {
+  try {
+    const company = await Company.findById(req.params.id);
+
+    if (!company) {
+      return res.status(404).json({
+        message: "Không tìm thấy công ty",
+        success: false,
+      });
+    }
+
+    if (company.logo) {
+      const publicId = extractPublicIdFromUrl(company.logo);
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId);
+      }
+    }
+
+    await Company.findByIdAndDelete(req.params.id);
+
+    return res.status(200).json({
+      message: "Xoá công ty thành công",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Lỗi xoá công ty:", error);
     return res.status(500).json({
       message: "Lỗi máy chủ nội bộ",
       success: false,
