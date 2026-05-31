@@ -16,6 +16,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((store) => store.auth);
   const [showPassword, setShowPassword] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const [input, setInput] = useState({
     email: "",
     file: null,
@@ -30,7 +31,11 @@ const Signup = () => {
   };
 
   const changeFileHandler = (e) => {
-    setInput({ ...input, file: e.target.files?.[0] });
+    const file = e.target.files?.[0];
+    if (file) {
+      setInput({ ...input, file });
+      setPreviewImage(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -76,6 +81,7 @@ const Signup = () => {
         <div className="space-y-3">
           <Label>Họ và tên</Label>
           <Input
+            disabled={loading}
             name="fullName"
             onChange={changeEventHandler}
             placeholder="Nhập họ và tên của bạn"
@@ -86,6 +92,7 @@ const Signup = () => {
         <div className="space-y-3">
           <Label>Email</Label>
           <Input
+            disabled={loading}
             name="email"
             onChange={changeEventHandler}
             placeholder="Nhập email của bạn"
@@ -96,6 +103,7 @@ const Signup = () => {
         <div className="space-y-3">
           <Label>Số điện thoại</Label>
           <Input
+            disabled={loading}
             name="phoneNumber"
             onChange={changeEventHandler}
             placeholder="Nhập số điện thoại của bạn"
@@ -108,6 +116,7 @@ const Signup = () => {
           <div className="relative">
             <Input
               className="pr-10"
+              disabled={loading}
               name="password"
               onChange={changeEventHandler}
               placeholder="Nhập mật khẩu của bạn"
@@ -117,6 +126,7 @@ const Signup = () => {
             <button
               aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
               className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
+              disabled={loading}
               onClick={() => setShowPassword((value) => !value)}
               type="button"
             >
@@ -131,15 +141,16 @@ const Signup = () => {
         <div className="pt-2">
           <RadioGroup
             className="flex items-center gap-4"
+            disabled={loading}
             onValueChange={(value) => setInput({ ...input, role: value })}
             value={input.role}
           >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem id="r1" value="student" />
+              <RadioGroupItem disabled={loading} id="r1" value="student" />
               <Label htmlFor="r1">Sinh viên</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem id="r2" value="recruiter" />
+              <RadioGroupItem disabled={loading} id="r2" value="recruiter" />
               <Label htmlFor="r2">Nhà tuyển dụng</Label>
             </div>
           </RadioGroup>
@@ -149,9 +160,17 @@ const Signup = () => {
           <Input
             accept="image/*"
             className="cursor-pointer"
+            disabled={loading}
             onChange={changeFileHandler}
             type="file"
           />
+          {previewImage && (
+            <img
+              alt="Preview"
+              className="size-16 rounded-full object-cover border"
+              src={previewImage}
+            />
+          )}
         </div>
         {loading ? (
           <Button className="w-full my-4" disabled>
@@ -165,7 +184,10 @@ const Signup = () => {
         )}
         <p className="text-sm">
           Đã có tài khoản?{" "}
-          <Link className="text-blue-600" to="/login">
+          <Link
+            className={`text-blue-600 ${loading ? "pointer-events-none opacity-50" : ""}`}
+            to="/login"
+          >
             Đăng nhập
           </Link>
         </p>

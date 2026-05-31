@@ -66,6 +66,7 @@ const Login = () => {
         <div className="space-y-3">
           <Label>Email</Label>
           <Input
+            disabled={loading}
             name="email"
             onChange={changeEventHandler}
             placeholder="Nhập email của bạn"
@@ -78,6 +79,7 @@ const Login = () => {
           <div className="relative">
             <Input
               className="pr-10"
+              disabled={loading}
               name="password"
               onChange={changeEventHandler}
               placeholder="Nhập mật khẩu của bạn"
@@ -87,6 +89,7 @@ const Login = () => {
             <button
               aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
               className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
+              disabled={loading}
               onClick={() => setShowPassword((value) => !value)}
               type="button"
             >
@@ -101,15 +104,16 @@ const Login = () => {
         <div className="pt-2">
           <RadioGroup
             className="flex items-center gap-4"
+            disabled={loading}
             onValueChange={(value) => setInput({ ...input, role: value })}
             value={input.role}
           >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem id="r1" value="student" />
+              <RadioGroupItem disabled={loading} id="r1" value="student" />
               <Label htmlFor="r1">Sinh viên</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem id="r2" value="recruiter" />
+              <RadioGroupItem disabled={loading} id="r2" value="recruiter" />
               <Label htmlFor="r2">Nhà tuyển dụng</Label>
             </div>
           </RadioGroup>
@@ -126,7 +130,10 @@ const Login = () => {
         )}
         <p className="text-sm">
           Chưa có tài khoản?{" "}
-          <Link className="text-blue-600" to="/signup">
+          <Link
+            className={`text-blue-600 ${loading ? "pointer-events-none opacity-50" : ""}`}
+            to="/signup"
+          >
             Đăng ký
           </Link>
         </p>
