@@ -47,15 +47,28 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5">
-            <li>
-              <Link to="/">Trang chủ</Link>
-            </li>
-            <li>
-              <Link to="/jobs">Việc làm</Link>
-            </li>
-            <li>
-              <Link to="/browse">Tìm kiếm</Link>
-            </li>
+            {user && user.role === "recruiter" ? (
+              <>
+                <li>
+                  <Link to="/admin/companies">Công ty</Link>
+                </li>
+                <li>
+                  <Link to="/admin/jobs">Việc làm</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/">Trang chủ</Link>
+                </li>
+                <li>
+                  <Link to="/jobs">Việc làm</Link>
+                </li>
+                <li>
+                  <Link to="/browse">Tìm kiếm</Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -103,14 +116,16 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col mt-4 gap-3 text-gray-600">
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <User size={18} />
-                    <Link to="/profile">
-                      <Button className="p-0 h-auto" variant="link">
-                        Xem hồ sơ
-                      </Button>
-                    </Link>
-                  </div>
+                  {user && user.role === "student" && (
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <User size={18} />
+                      <Link to="/profile">
+                        <Button className="p-0 h-auto" variant="link">
+                          Xem hồ sơ
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 cursor-pointer">
                     <LogOut size={18} />
                     <Button
@@ -141,21 +156,44 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4">
           <ul className="flex flex-col font-medium gap-4 py-4">
-            <li>
-              <Link onClick={() => setIsMobileMenuOpen(false)} to="/">
-                Trang chủ
-              </Link>
-            </li>
-            <li>
-              <Link onClick={() => setIsMobileMenuOpen(false)} to="/jobs">
-                Việc làm
-              </Link>
-            </li>
-            <li>
-              <Link onClick={() => setIsMobileMenuOpen(false)} to="/browse">
-                Tìm kiếm
-              </Link>
-            </li>
+            {user && user.role === "recruiter" ? (
+              <>
+                <li>
+                  <Link
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    to="/admin/companies"
+                  >
+                    Công ty
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    to="/admin/jobs"
+                  >
+                    Việc làm
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link onClick={() => setIsMobileMenuOpen(false)} to="/">
+                    Trang chủ
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => setIsMobileMenuOpen(false)} to="/jobs">
+                    Việc làm
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={() => setIsMobileMenuOpen(false)} to="/browse">
+                    Tìm kiếm
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -190,16 +228,18 @@ const Navbar = () => {
                   </p>
                 </div>
               </div>
-              <Link
-                className="flex items-center gap-2 cursor-pointer"
-                onClick={() => setIsMobileMenuOpen(false)}
-                to="/profile"
-              >
-                <User size={18} />
-                <Button className="p-0 h-auto" variant="link">
-                  Xem hồ sơ
-                </Button>
-              </Link>
+              {user && user.role === "student" && (
+                <Link
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  to="/profile"
+                >
+                  <User size={18} />
+                  <Button className="p-0 h-auto" variant="link">
+                    Xem hồ sơ
+                  </Button>
+                </Link>
+              )}
               <div className="flex items-center gap-2 cursor-pointer">
                 <LogOut size={18} />
                 <Button
