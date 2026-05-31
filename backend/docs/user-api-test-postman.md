@@ -19,23 +19,20 @@
 
 #### Headers
 - **Key:** `Content-Type`
-- **Value:** `application/json`
+- **Value:** `multipart/form-data`
 - **Required:** Có
-- **Description:** Định dạng nội dung yêu cầu
+- **Description:** Định dạng nội dung yêu cầu (hỗ trợ upload ảnh)
 - **Authorization Headers:** Không yêu cầu
 
 #### Body
-- **Format:** Raw JSON
-- **Content:**
-  ```json
-  {
-    "fullName": "Nguyen Van A",
-    "email": "example@gmail.com",
-    "phoneNumber": "0123456789",
-    "password": "password123",
-    "role": "student"
-  }
-  ```
+- **Format:** FormData
+- **Fields:**
+  - `fullName`: "Nguyen Van A"
+  - `email`: "example@gmail.com"
+  - `phoneNumber`: "0123456789"
+  - `password`: "password123"
+  - `role`: "student"
+  - `file`: <Chọn file ảnh> (Tuỳ chọn)
 
 #### Response
 - **Success (201 Created):**
@@ -48,7 +45,10 @@
       "email": "example@gmail.com",
       "fullName": "Nguyen Van A",
       "phoneNumber": "0123456789",
-      "role": "student"
+      "role": "student",
+      "profile": {
+        "profilePhoto": "http://cloudinary.com/path/to/image.jpg"
+      }
     }
   }
   ```

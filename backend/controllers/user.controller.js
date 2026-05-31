@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import cloudinary from "../utils/cloudinary.js";
 
 // Đăng ký
 export const register = async (req, res) => {
@@ -12,6 +13,27 @@ export const register = async (req, res) => {
         message: "Thiếu thông tin",
         success: false,
       });
+    }
+
+    let profilePhotoUrl = "";
+    if (req.file) {
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: "lifetimeCoding-job-website/profile",
+            resource_type: "image",
+          },
+          (err, uploadResult) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(uploadResult);
+          },
+        );
+        stream.end(req.file.buffer);
+      });
+      profilePhotoUrl = result.secure_url;
     }
 
     // Kiểm tra người dùng đã tồn tại
@@ -32,6 +54,9 @@ export const register = async (req, res) => {
       fullName,
       password: hashedPassword,
       phoneNumber,
+      profile: {
+        profilePhoto: profilePhotoUrl,
+      },
       role,
     });
 
@@ -43,6 +68,7 @@ export const register = async (req, res) => {
         email: user.email,
         fullName: user.fullName,
         phoneNumber: user.phoneNumber,
+        profile: user.profile,
         role: user.role,
       },
     });
