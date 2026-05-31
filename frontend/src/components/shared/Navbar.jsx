@@ -55,14 +55,24 @@ const Navbar = () => {
             <Popover>
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage
+                    src={
+                      user?.profile?.profilePhoto ||
+                      "https://github.com/shadcn.png"
+                    }
+                  />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div className="flex gap-4">
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage
+                      src={
+                        user?.profile?.profilePhoto ||
+                        "https://github.com/shadcn.png"
+                      }
+                    />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
@@ -77,9 +87,11 @@ const Navbar = () => {
                 <div className="flex flex-col mt-4 gap-3 text-gray-600">
                   <div className="flex items-center gap-2 cursor-pointer">
                     <User size={18} />
-                    <Button className="p-0 h-auto" variant="link">
-                      Xem hồ sơ
-                    </Button>
+                    <Link to="/profile">
+                      <Button className="p-0 h-auto" variant="link">
+                        Xem hồ sơ
+                      </Button>
+                    </Link>
                   </div>
                   <div className="flex items-center gap-2 cursor-pointer">
                     <LogOut size={18} />
@@ -148,7 +160,12 @@ const Navbar = () => {
             <div className="flex flex-col gap-3 text-gray-600 border-t border-gray-100 pt-4">
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage
+                    src={
+                      user?.profile?.profilePhoto ||
+                      "https://github.com/shadcn.png"
+                    }
+                  />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div>
@@ -158,12 +175,16 @@ const Navbar = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 cursor-pointer">
+              <Link
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                to="/profile"
+              >
                 <User size={18} />
                 <Button className="p-0 h-auto" variant="link">
                   Xem hồ sơ
                 </Button>
-              </div>
+              </Link>
               <div className="flex items-center gap-2 cursor-pointer">
                 <LogOut size={18} />
                 <Button
