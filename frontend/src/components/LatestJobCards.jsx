@@ -1,0 +1,44 @@
+import { Bookmark } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+const LatestJobCards = () => {
+  return (
+    <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-gray-500">2 ngày trước</p>
+        <button type="button">
+          <Bookmark className="text-gray-500" size={18} />
+        </button>
+      </div>
+
+      <div className="flex items-center gap-2 my-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200" />
+        <div>
+          <h1 className="font-medium text-lg">Tên công ty</h1>
+          <p className="text-sm text-gray-500">Việt Nam</p>
+        </div>
+      </div>
+
+      <div>
+        <h1 className="font-bold text-lg my-2">Tiêu đề công việc</h1>
+        <p className="text-sm text-gray-600">
+          Mô tả ngắn về công việc với những chi tiết chính về vai trò.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-2 mt-4">
+        <Badge className="text-blue-700 font-bold" variant="ghost">
+          12 Vị trí
+        </Badge>
+        <Badge className="text-[#F83002] font-bold" variant="ghost">
+          Bán thời gian
+        </Badge>
+        <Badge className="text-[#7209b7] font-bold" variant="ghost">
+          15-20 triệu
+        </Badge>
+      </div>
+    </div>
+  );
+};
+
+export default LatestJobCards;

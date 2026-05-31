@@ -1,16 +1,20 @@
 import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { setLoading } from "@/redux/authSlice.js";
 import { USER_API_END_POINT } from "@/utils/constants";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: "",
@@ -41,6 +45,7 @@ const Signup = () => {
       formData.append("file", input.file);
     }
 
+    dispatch(setLoading(true));
     try {
       const response = await axios.post(
         `${USER_API_END_POINT}/register`,
@@ -56,6 +61,8 @@ const Signup = () => {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Đã có lỗi xảy ra");
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -146,9 +153,16 @@ const Signup = () => {
             type="file"
           />
         </div>
-        <Button className="w-full" type="submit">
-          Đăng ký
-        </Button>
+        {loading ? (
+          <Button className="w-full my-4" disabled>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Vui lòng chờ...
+          </Button>
+        ) : (
+          <Button className="w-full" type="submit">
+            Đăng ký
+          </Button>
+        )}
         <p className="text-sm">
           Đã có tài khoản?{" "}
           <Link className="text-blue-600" to="/login">

@@ -1,6 +1,8 @@
 import { LogOut, Menu, User, X } from "lucide-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,9 +10,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { logout } from "@/redux/authSlice.js";
 
 const Navbar = () => {
-  const [isLoggedIn] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -36,7 +40,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {!isLoggedIn ? (
+          {!user ? (
             <div className="flex items-center gap-2">
               <Link to="/login">
                 <Button variant="outline">Đăng nhập</Button>
@@ -62,9 +66,11 @@ const Navbar = () => {
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h4 className="font-medium">Aachal Mittal</h4>
+                    <h4 className="font-medium">{user?.fullName}</h4>
                     <p className="text-sm text-muted-foreground">
-                      Full Stack Developer
+                      {user?.role === "student"
+                        ? "Sinh viên"
+                        : "Nhà tuyển dụng"}
                     </p>
                   </div>
                 </div>
@@ -77,7 +83,14 @@ const Navbar = () => {
                   </div>
                   <div className="flex items-center gap-2 cursor-pointer">
                     <LogOut size={18} />
-                    <Button className="p-0 h-auto" variant="link">
+                    <Button
+                      className="p-0 h-auto"
+                      onClick={() => {
+                        dispatch(logout());
+                        toast.success("Đăng xuất thành công");
+                      }}
+                      variant="link"
+                    >
                       Đăng xuất
                     </Button>
                   </div>
@@ -118,7 +131,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {!isLoggedIn ? (
+          {!user ? (
             <div className="flex flex-col gap-2">
               <Link onClick={() => setIsMobileMenuOpen(false)} to="/login">
                 <Button className="w-full" variant="outline">
@@ -139,9 +152,9 @@ const Navbar = () => {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h4 className="font-medium">Aachal Mittal</h4>
+                  <h4 className="font-medium">{user?.fullName}</h4>
                   <p className="text-sm text-muted-foreground">
-                    Full Stack Developer
+                    {user?.role === "student" ? "Sinh viên" : "Nhà tuyển dụng"}
                   </p>
                 </div>
               </div>
@@ -153,7 +166,14 @@ const Navbar = () => {
               </div>
               <div className="flex items-center gap-2 cursor-pointer">
                 <LogOut size={18} />
-                <Button className="p-0 h-auto" variant="link">
+                <Button
+                  className="p-0 h-auto"
+                  onClick={() => {
+                    dispatch(logout());
+                    toast.success("Đăng xuất thành công");
+                  }}
+                  variant="link"
+                >
                   Đăng xuất
                 </Button>
               </div>
