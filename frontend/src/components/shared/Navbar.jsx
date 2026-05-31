@@ -1,7 +1,8 @@
+import axios from "axios";
 import { LogOut, Menu, User, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -11,11 +12,28 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { logout } from "@/redux/authSlice.js";
+import { USER_API_END_POINT } from "@/utils/constants";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(logout());
+        navigate("/");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Đã có lỗi xảy ra");
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -97,10 +115,7 @@ const Navbar = () => {
                     <LogOut size={18} />
                     <Button
                       className="p-0 h-auto"
-                      onClick={() => {
-                        dispatch(logout());
-                        toast.success("Đăng xuất thành công");
-                      }}
+                      onClick={logoutHandler}
                       variant="link"
                     >
                       Đăng xuất
@@ -190,8 +205,8 @@ const Navbar = () => {
                 <Button
                   className="p-0 h-auto"
                   onClick={() => {
-                    dispatch(logout());
-                    toast.success("Đăng xuất thành công");
+                    logoutHandler();
+                    setIsMobileMenuOpen(false);
                   }}
                   variant="link"
                 >

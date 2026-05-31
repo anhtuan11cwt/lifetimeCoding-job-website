@@ -1,9 +1,14 @@
+import { useSelector } from "react-redux";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import HeroSection from "@/components/HeroSection";
 import LatestJobCards from "@/components/LatestJobCards";
 import Footer from "@/components/shared/Footer";
+import useGetAllJobs from "@/hooks/useGetAllJobs";
 
 const Home = () => {
+  useGetAllJobs();
+  const { allJobs } = useSelector((store) => store.job);
+
   return (
     <div>
       <HeroSection />
@@ -11,9 +16,15 @@ const Home = () => {
       <div className="max-w-5xl mx-auto my-20 px-4">
         <h1 className="text-2xl font-bold">Việc làm mới và nổi bật</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-5">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <LatestJobCards key={item} />
-          ))}
+          {allJobs.length > 0 ? (
+            allJobs
+              .slice(0, 6)
+              .map((job) => <LatestJobCards job={job} key={job._id} />)
+          ) : (
+            <p className="col-span-3 text-center text-gray-500">
+              Chưa có công việc nào
+            </p>
+          )}
         </div>
       </div>
       <Footer />

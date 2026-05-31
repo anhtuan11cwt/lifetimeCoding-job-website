@@ -1,43 +1,65 @@
-import { Bookmark } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
-const LatestJobCards = () => {
+const currentTime = Date.now();
+
+const LatestJobCards = ({ job }) => {
+  const postedLabel = (() => {
+    const days = Math.floor(
+      (currentTime - new Date(job.createdAt).getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    if (days === 0) return "Hôm nay";
+    if (days === 1) return "Hôm qua";
+    return `${days} ngày trước`;
+  })();
+
   return (
-    <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer">
+    <Link
+      className="block rounded-md border border-gray-100 bg-white p-5 shadow-xl transition hover:border-gray-200 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      to={`/description/${job._id}`}
+    >
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">2 ngày trước</p>
-        <button type="button">
-          <Bookmark className="text-gray-500" size={18} />
-        </button>
+        <p className="text-sm text-gray-500">{postedLabel}</p>
       </div>
 
-      <div className="flex items-center gap-2 my-2">
-        <div className="h-10 w-10 rounded-full bg-gray-200" />
+      <div className="my-2 flex items-center gap-2">
+        <Avatar className="h-10 w-10">
+          <AvatarImage
+            src={job?.company?.logo || "https://github.com/shadcn.png"}
+          />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
         <div>
-          <h1 className="font-medium text-lg">Tên công ty</h1>
-          <p className="text-sm text-gray-500">Việt Nam</p>
+          <h1 className="text-lg font-medium">
+            {job?.company?.name || "Tên công ty"}
+          </h1>
+          <p className="text-sm text-gray-500">{job?.location || "Việt Nam"}</p>
         </div>
       </div>
 
       <div>
-        <h1 className="font-bold text-lg my-2">Tiêu đề công việc</h1>
-        <p className="text-sm text-gray-600">
-          Mô tả ngắn về công việc với những chi tiết chính về vai trò.
+        <h1 className="my-2 text-lg font-bold">
+          {job?.title || "Tiêu đề công việc"}
+        </h1>
+        <p className="line-clamp-2 text-sm text-gray-600">
+          {job?.description || "Mô tả ngắn về công việc."}
         </p>
       </div>
 
-      <div className="flex items-center gap-2 mt-4">
-        <Badge className="text-blue-700 font-bold" variant="ghost">
-          12 Vị trí
+      <div className="mt-4 flex items-center gap-2">
+        <Badge className="font-bold text-blue-700" variant="ghost">
+          {job?.position || 0} Vị trí
         </Badge>
-        <Badge className="text-[#F83002] font-bold" variant="ghost">
-          Bán thời gian
+        <Badge className="font-bold text-[#F83002]" variant="ghost">
+          {job?.jobType || "Toàn thời gian"}
         </Badge>
-        <Badge className="text-[#7209b7] font-bold" variant="ghost">
-          15-20 triệu
+        <Badge className="font-bold text-[#7209b7]" variant="ghost">
+          {job?.salary ? `${job.salary} triệu` : "Thỏa thuận"}
         </Badge>
       </div>
-    </div>
+    </Link>
   );
 };
 
