@@ -32,6 +32,7 @@
     "lint": "eslint .",
     "lint2": "biome lint --write",
     "predev": "npx kill-port 8000",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
