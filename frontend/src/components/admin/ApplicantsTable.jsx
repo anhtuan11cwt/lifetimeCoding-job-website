@@ -1,8 +1,9 @@
 import axios from "axios";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -18,17 +19,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { updateApplicationStatus } from "@/redux/applicationSlice";
 import { APPLICATION_API_END_POINT } from "@/utils/constants";
 import { formatDate } from "@/utils/format";
 
 const shortlistingStatus = ["Accepted", "Rejected"];
+const statusVariant = {
+  Accepted: "default",
+  Pending: "outline",
+  Rejected: "destructive",
+};
 const statusLabel = {
   Accepted: "Đã duyệt",
+  Pending: "Đang chờ",
   Rejected: "Từ chối",
 };
 
 const ApplicantsTable = () => {
   const { applicants } = useSelector((store) => store.application);
+  const dispatch = useDispatch();
   const [openStates, setOpenStates] = useState({});
 
   const statusHandler = async (status, id) => {
@@ -43,6 +52,7 @@ const ApplicantsTable = () => {
       );
       if (res.data.success) {
         toast.success(res.data.message);
+        dispatch(updateApplicationStatus({ id, status }));
         setOpenStates((prev) => ({ ...prev, [id]: false }));
       }
     } catch (error) {
@@ -60,6 +70,7 @@ const ApplicantsTable = () => {
           <TableHead>Số điện thoại</TableHead>
           <TableHead>CV</TableHead>
           <TableHead>Ngày ứng tuyển</TableHead>
+          <TableHead className="text-center">Trạng thái</TableHead>
           <TableHead className="text-right">Thao tác</TableHead>
         </TableRow>
       </TableHeader>
@@ -85,45 +96,52 @@ const ApplicantsTable = () => {
                 )}
               </TableCell>
               <TableCell>{formatDate(item.createdAt)}</TableCell>
+              <TableCell className="text-center">
+                <Badge variant={statusVariant[item.status] || "outline"}>
+                  {statusLabel[item.status] || item.status}
+                </Badge>
+              </TableCell>
               <TableCell className="text-right">
-                <Popover
-                  onOpenChange={(isOpen) =>
-                    setOpenStates((prev) => ({ ...prev, [item._id]: isOpen }))
-                  }
-                  open={openStates[item._id] || false}
-                >
-                  <PopoverTrigger asChild>
-                    <Button className="h-8 w-8 p-0" variant="ghost">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-40">
-                    {shortlistingStatus.map((status) => (
-                      <button
-                        className="flex w-full items-center rounded-sm px-2 py-1 text-left text-sm hover:bg-muted cursor-pointer"
-                        key={status}
-                        onClick={() => statusHandler(status, item._id)}
-                        type="button"
-                      >
-                        <span
-                          className={
-                            status === "Accepted"
-                              ? "text-green-600"
-                              : "text-red-600"
-                          }
+                {item.status === "Pending" && (
+                  <Popover
+                    onOpenChange={(isOpen) =>
+                      setOpenStates((prev) => ({ ...prev, [item._id]: isOpen }))
+                    }
+                    open={openStates[item._id] || false}
+                  >
+                    <PopoverTrigger asChild>
+                      <Button className="h-8 w-8 p-0" variant="ghost">
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-40">
+                      {shortlistingStatus.map((status) => (
+                        <button
+                          className="flex w-full items-center rounded-sm px-2 py-1 text-left text-sm hover:bg-muted cursor-pointer"
+                          key={status}
+                          onClick={() => statusHandler(status, item._id)}
+                          type="button"
                         >
-                          {statusLabel[status] || status}
-                        </span>
-                      </button>
-                    ))}
-                  </PopoverContent>
-                </Popover>
+                          <span
+                            className={
+                              status === "Accepted"
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }
+                          >
+                            {statusLabel[status] || status}
+                          </span>
+                        </button>
+                      ))}
+                    </PopoverContent>
+                  </Popover>
+                )}
               </TableCell>
             </TableRow>
           ))
         ) : (
           <TableRow>
-            <TableCell className="text-center" colSpan={6}>
+            <TableCell className="text-center" colSpan={7}>
               Chưa có ứng viên nào
             </TableCell>
           </TableRow>
