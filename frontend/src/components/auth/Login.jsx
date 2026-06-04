@@ -57,69 +57,104 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="flex items-center justify-center min-h-[calc(100dvh-5rem)] px-6 md:px-12 lg:px-24 xl:px-40 py-10">
       <form
-        className="w-full md:w-1/2 border border-gray-200 rounded-lg p-6 space-y-6"
+        className="w-full max-w-lg bg-card border border-border rounded-xl p-8 space-y-6 shadow-sm"
         onSubmit={handleSubmit}
       >
-        <h1 className="font-bold text-xl">Đăng nhập</h1>
-        <div className="space-y-3">
-          <Label>Email</Label>
-          <Input
-            disabled={loading}
-            name="email"
-            onChange={changeEventHandler}
-            placeholder="Nhập email của bạn"
-            type="email"
-            value={input.email}
-          />
+        <div className="space-y-1">
+          <h1 className="font-bold text-2xl tracking-tight">Đăng nhập</h1>
+          <p className="text-sm text-muted-foreground">
+            Đăng nhập để tiếp tục sử dụng dịch vụ
+          </p>
         </div>
-        <div className="space-y-3">
-          <Label>Mật khẩu</Label>
-          <div className="relative">
+
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="login-email">Email</Label>
             <Input
-              className="pr-10"
+              autoComplete="email"
               disabled={loading}
-              name="password"
+              id="login-email"
+              name="email"
               onChange={changeEventHandler}
-              placeholder="Nhập mật khẩu của bạn"
-              type={showPassword ? "text" : "password"}
-              value={input.password}
+              placeholder="Nhập email của bạn"
+              type="email"
+              value={input.email}
             />
-            <button
-              aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
-              disabled={loading}
-              onClick={() => setShowPassword((value) => !value)}
-              type="button"
-            >
-              {showPassword ? (
-                <EyeOff className="size-4" />
-              ) : (
-                <Eye className="size-4" />
-              )}
-            </button>
           </div>
-        </div>
-        <div className="pt-2">
-          <RadioGroup
-            className="flex items-center gap-4"
-            disabled={loading}
-            onValueChange={(value) => setInput({ ...input, role: value })}
-            value={input.role}
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem disabled={loading} id="r1" value="student" />
-              <Label htmlFor="r1">Sinh viên</Label>
+
+          <div className="space-y-2">
+            <Label htmlFor="login-password">Mật khẩu</Label>
+            <div className="relative">
+              <Input
+                autoComplete="current-password"
+                className="pr-10"
+                disabled={loading}
+                id="login-password"
+                name="password"
+                onChange={changeEventHandler}
+                placeholder="Nhập mật khẩu của bạn"
+                type={showPassword ? "text" : "password"}
+                value={input.password}
+              />
+              <button
+                aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                className="absolute inset-y-0 right-0 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground"
+                disabled={loading}
+                onClick={() => setShowPassword((value) => !value)}
+                tabIndex={-1}
+                type="button"
+              >
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+              </button>
             </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem disabled={loading} id="r2" value="recruiter" />
-              <Label htmlFor="r2">Nhà tuyển dụng</Label>
-            </div>
-          </RadioGroup>
+          </div>
+
+          <fieldset className="pt-1">
+            <legend className="text-sm font-medium mb-2">Bạn là</legend>
+            <RadioGroup
+              className="flex items-center gap-6"
+              disabled={loading}
+              onValueChange={(value) => setInput({ ...input, role: value })}
+              value={input.role}
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
+                  disabled={loading}
+                  id="login-student"
+                  value="student"
+                />
+                <Label
+                  className="text-sm font-normal cursor-pointer"
+                  htmlFor="login-student"
+                >
+                  Sinh viên
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
+                  disabled={loading}
+                  id="login-recruiter"
+                  value="recruiter"
+                />
+                <Label
+                  className="text-sm font-normal cursor-pointer"
+                  htmlFor="login-recruiter"
+                >
+                  Nhà tuyển dụng
+                </Label>
+              </div>
+            </RadioGroup>
+          </fieldset>
         </div>
+
         {loading ? (
-          <Button className="w-full my-4" disabled>
+          <Button className="w-full" disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Vui lòng chờ...
           </Button>
@@ -128,10 +163,11 @@ const Login = () => {
             Đăng nhập
           </Button>
         )}
-        <p className="text-sm">
+
+        <p className="text-sm text-center text-muted-foreground">
           Chưa có tài khoản?{" "}
           <Link
-            className={`text-blue-600 ${loading ? "pointer-events-none opacity-50" : ""}`}
+            className={`text-primary font-medium hover:underline ${loading ? "pointer-events-none opacity-50" : ""}`}
             to="/signup"
           >
             Đăng ký

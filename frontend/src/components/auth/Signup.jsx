@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Camera, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -72,108 +72,165 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="flex items-center justify-center min-h-[calc(100dvh-5rem)] px-6 md:px-12 lg:px-24 xl:px-40 py-10">
       <form
-        className="w-full md:w-1/2 border border-gray-200 rounded-lg p-6 space-y-6"
+        className="w-full max-w-lg bg-card border border-border rounded-xl p-8 space-y-6 shadow-sm"
         onSubmit={handleSubmit}
       >
-        <h1 className="font-bold text-xl">Đăng ký</h1>
-        <div className="space-y-3">
-          <Label>Họ và tên</Label>
-          <Input
-            disabled={loading}
-            name="fullName"
-            onChange={changeEventHandler}
-            placeholder="Nhập họ và tên của bạn"
-            type="text"
-            value={input.fullName}
-          />
+        <div className="space-y-1">
+          <h1 className="font-bold text-2xl tracking-tight">Đăng ký</h1>
+          <p className="text-sm text-muted-foreground">
+            Tạo tài khoản để bắt đầu tìm kiếm cơ hội việc làm
+          </p>
         </div>
-        <div className="space-y-3">
-          <Label>Email</Label>
-          <Input
-            disabled={loading}
-            name="email"
-            onChange={changeEventHandler}
-            placeholder="Nhập email của bạn"
-            type="email"
-            value={input.email}
-          />
-        </div>
-        <div className="space-y-3">
-          <Label>Số điện thoại</Label>
-          <Input
-            disabled={loading}
-            name="phoneNumber"
-            onChange={changeEventHandler}
-            placeholder="Nhập số điện thoại của bạn"
-            type="text"
-            value={input.phoneNumber}
-          />
-        </div>
-        <div className="space-y-3">
-          <Label>Mật khẩu</Label>
-          <div className="relative">
+
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="signup-name">Họ và tên</Label>
             <Input
-              className="pr-10"
+              autoComplete="name"
               disabled={loading}
-              name="password"
+              id="signup-name"
+              name="fullName"
               onChange={changeEventHandler}
-              placeholder="Nhập mật khẩu của bạn"
-              type={showPassword ? "text" : "password"}
-              value={input.password}
+              placeholder="Nhập họ và tên của bạn"
+              type="text"
+              value={input.fullName}
             />
-            <button
-              aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground transition-colors hover:text-foreground"
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="signup-email">Email</Label>
+            <Input
+              autoComplete="email"
               disabled={loading}
-              onClick={() => setShowPassword((value) => !value)}
-              type="button"
+              id="signup-email"
+              name="email"
+              onChange={changeEventHandler}
+              placeholder="Nhập email của bạn"
+              type="email"
+              value={input.email}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="signup-phone">Số điện thoại</Label>
+            <Input
+              autoComplete="tel"
+              disabled={loading}
+              id="signup-phone"
+              name="phoneNumber"
+              onChange={changeEventHandler}
+              placeholder="Nhập số điện thoại của bạn"
+              type="tel"
+              value={input.phoneNumber}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="signup-password">Mật khẩu</Label>
+            <div className="relative">
+              <Input
+                autoComplete="new-password"
+                className="pr-10"
+                disabled={loading}
+                id="signup-password"
+                name="password"
+                onChange={changeEventHandler}
+                placeholder="Nhập mật khẩu của bạn"
+                type={showPassword ? "text" : "password"}
+                value={input.password}
+              />
+              <button
+                aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                className="absolute inset-y-0 right-0 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground"
+                disabled={loading}
+                onClick={() => setShowPassword((value) => !value)}
+                tabIndex={-1}
+                type="button"
+              >
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <fieldset className="pt-1">
+            <legend className="text-sm font-medium mb-2">Bạn là</legend>
+            <RadioGroup
+              className="flex items-center gap-6"
+              disabled={loading}
+              onValueChange={(value) => setInput({ ...input, role: value })}
+              value={input.role}
             >
-              {showPassword ? (
-                <EyeOff className="size-4" />
-              ) : (
-                <Eye className="size-4" />
-              )}
-            </button>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
+                  disabled={loading}
+                  id="signup-student"
+                  value="student"
+                />
+                <Label
+                  className="text-sm font-normal cursor-pointer"
+                  htmlFor="signup-student"
+                >
+                  Sinh viên
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
+                  disabled={loading}
+                  id="signup-recruiter"
+                  value="recruiter"
+                />
+                <Label
+                  className="text-sm font-normal cursor-pointer"
+                  htmlFor="signup-recruiter"
+                >
+                  Nhà tuyển dụng
+                </Label>
+              </div>
+            </RadioGroup>
+          </fieldset>
+
+          <div className="space-y-2">
+            <Label htmlFor="signup-avatar">Ảnh đại diện</Label>
+            <div className="flex items-center gap-4">
+              <label
+                className="relative size-16 shrink-0 rounded-full overflow-hidden border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors duration-150 cursor-pointer bg-muted flex items-center justify-center"
+                htmlFor="signup-avatar"
+              >
+                {previewImage ? (
+                  <img
+                    alt="Preview"
+                    className="size-full object-cover"
+                    src={previewImage}
+                  />
+                ) : (
+                  <Camera className="text-muted-foreground" size={20} />
+                )}
+              </label>
+              <div className="flex-1">
+                <Input
+                  accept="image/*"
+                  className="cursor-pointer text-sm"
+                  disabled={loading}
+                  id="signup-avatar"
+                  onChange={changeFileHandler}
+                  type="file"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  JPG, PNG hoặc WEBP. Tối đa 5MB.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="pt-2">
-          <RadioGroup
-            className="flex items-center gap-4"
-            disabled={loading}
-            onValueChange={(value) => setInput({ ...input, role: value })}
-            value={input.role}
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem disabled={loading} id="r1" value="student" />
-              <Label htmlFor="r1">Sinh viên</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem disabled={loading} id="r2" value="recruiter" />
-              <Label htmlFor="r2">Nhà tuyển dụng</Label>
-            </div>
-          </RadioGroup>
-        </div>
-        <div className="space-y-3">
-          <Label>Ảnh đại diện</Label>
-          <Input
-            accept="image/*"
-            className="cursor-pointer"
-            disabled={loading}
-            onChange={changeFileHandler}
-            type="file"
-          />
-          {previewImage && (
-            <img
-              alt="Preview"
-              className="size-16 rounded-full object-cover border"
-              src={previewImage}
-            />
-          )}
-        </div>
+
         {loading ? (
-          <Button className="w-full my-4" disabled>
+          <Button className="w-full" disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Vui lòng chờ...
           </Button>
@@ -182,10 +239,11 @@ const Signup = () => {
             Đăng ký
           </Button>
         )}
-        <p className="text-sm">
+
+        <p className="text-sm text-center text-muted-foreground">
           Đã có tài khoản?{" "}
           <Link
-            className={`text-blue-600 ${loading ? "pointer-events-none opacity-50" : ""}`}
+            className={`text-primary font-medium hover:underline ${loading ? "pointer-events-none opacity-50" : ""}`}
             to="/login"
           >
             Đăng nhập
