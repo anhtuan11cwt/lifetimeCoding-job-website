@@ -14,7 +14,6 @@ const Profile = () => {
   const [open, setOpen] = useState(false);
 
   const skills = user?.profile?.skills || [];
-  const isResume = !!user?.profile?.resume;
 
   return (
     <div className="max-w-5xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8">
@@ -69,23 +68,6 @@ const Profile = () => {
             <span className="text-gray-500">NA</span>
           )}
         </div>
-      </div>
-
-      {/* Resume */}
-      <div className="my-5">
-        <h1 className="font-bold text-lg">CV</h1>
-        {isResume ? (
-          <a
-            className="text-blue-500 hover:underline cursor-pointer"
-            href={user?.profile?.resume}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {user?.profile?.resumeOriginalName || "Xem CV"}
-          </a>
-        ) : (
-          <span className="text-gray-500">NA</span>
-        )}
       </div>
 
       {/* Applied Jobs */}

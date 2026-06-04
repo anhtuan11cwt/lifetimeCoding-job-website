@@ -23,7 +23,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
   const [input, setInput] = useState({
     bio: user?.profile?.bio || "",
     email: user?.email || "",
-    file: user?.profile?.resume || "",
     fullName: user?.fullName || "",
     phoneNumber: user?.phoneNumber || "",
     skills: user?.profile?.skills?.join(", ") || "",
@@ -31,11 +30,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
-  const fileChangeHandler = (e) => {
-    const file = e.target.files?.[0];
-    setInput({ ...input, file });
   };
 
   const submitHandler = async (e) => {
@@ -46,9 +40,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
-    if (input.file) {
-      formData.append("file", input.file);
-    }
     try {
       setLoading(true);
       const res = await axios.post(
@@ -138,19 +129,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 onChange={changeEventHandler}
                 placeholder="HTML, CSS, JavaScript"
                 value={input.skills}
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="file">
-                CV
-              </Label>
-              <Input
-                accept="application/pdf"
-                className="col-span-3"
-                id="file"
-                name="file"
-                onChange={fileChangeHandler}
-                type="file"
               />
             </div>
           </div>

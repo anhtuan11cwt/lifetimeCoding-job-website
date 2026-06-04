@@ -68,7 +68,6 @@ const ApplicantsTable = () => {
           <TableHead>Họ tên</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Số điện thoại</TableHead>
-          <TableHead>CV</TableHead>
           <TableHead>Ngày ứng tuyển</TableHead>
           <TableHead className="text-center">Trạng thái</TableHead>
           <TableHead className="text-right">Thao tác</TableHead>
@@ -81,20 +80,6 @@ const ApplicantsTable = () => {
               <TableCell>{item.applicant?.fullName || "N/A"}</TableCell>
               <TableCell>{item.applicant?.email || "N/A"}</TableCell>
               <TableCell>{item.applicant?.phoneNumber || "N/A"}</TableCell>
-              <TableCell>
-                {item.applicant?.profile?.resume ? (
-                  <a
-                    className="text-blue-600 cursor-pointer"
-                    href={item.applicant.profile.resume}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {item.applicant.profile.resumeOriginalName || "Xem CV"}
-                  </a>
-                ) : (
-                  "N/A"
-                )}
-              </TableCell>
               <TableCell>{formatDate(item.createdAt)}</TableCell>
               <TableCell className="text-center">
                 <Badge variant={statusVariant[item.status] || "outline"}>
@@ -141,7 +126,7 @@ const ApplicantsTable = () => {
           ))
         ) : (
           <TableRow>
-            <TableCell className="text-center" colSpan={7}>
+            <TableCell className="text-center" colSpan={6}>
               Chưa có ứng viên nào
             </TableCell>
           </TableRow>
