@@ -57,9 +57,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center max-w-7xl mx-auto">
+    <div className="flex items-center justify-center my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <form
-        className="w-4/5 md:w-1/2 border border-gray-200 rounded-lg p-6 my-10 space-y-6"
+        className="w-full md:w-1/2 border border-gray-200 rounded-lg p-6 space-y-6"
         onSubmit={handleSubmit}
       >
         <h1 className="font-bold text-xl">Đăng nhập</h1>

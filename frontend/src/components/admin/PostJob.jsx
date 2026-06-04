@@ -69,7 +69,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40 max-w-3xl">
       <h1 className="font-bold text-2xl mb-6">Đăng tuyển công việc mới</h1>
 
       {companies.length === 0 && (

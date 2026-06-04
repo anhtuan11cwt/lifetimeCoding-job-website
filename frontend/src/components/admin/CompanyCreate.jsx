@@ -35,7 +35,7 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="my-10">
         <h1 className="font-bold text-2xl">Tên công ty của bạn</h1>
         <p className="text-gray-500 mt-2">

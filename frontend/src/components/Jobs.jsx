@@ -45,7 +45,7 @@ const Jobs = () => {
   }, [allJobs, query, filters]);
 
   return (
-    <div className="max-w-7xl mx-auto mt-5 px-4">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="flex flex-col md:flex-row gap-5">
         <div className="w-full md:w-[20%]">
           <FilterCard onFilterChange={setFilters} />

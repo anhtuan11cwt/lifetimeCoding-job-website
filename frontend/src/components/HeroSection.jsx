@@ -15,7 +15,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="text-center px-4">
+    <div className="text-center px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="flex flex-col gap-5 my-10">
         <span className="mx-auto px-4 py-2 rounded-full bg-gray-100 text-[#F83002] font-medium text-sm">
           Trang web tìm việc số 1

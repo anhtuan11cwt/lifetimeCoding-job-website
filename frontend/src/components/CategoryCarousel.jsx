@@ -20,7 +20,7 @@ const CategoryCarousel = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="px-4">
+    <div className="px-6 md:px-12 lg:px-24 xl:px-40">
       <Carousel className="w-full max-w-xl mx-auto my-20">
         <CarouselContent>
           {category.map((cat) => (

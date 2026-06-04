@@ -23,7 +23,7 @@ const Home = () => {
     <div>
       <HeroSection />
       <CategoryCarousel />
-      <div className="max-w-5xl mx-auto my-20 px-4">
+      <div className="my-20 px-6 md:px-12 lg:px-24 xl:px-40">
         <h1 className="text-2xl font-bold">Việc làm mới và nổi bật</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-5">
           {allJobs.length > 0 ? (

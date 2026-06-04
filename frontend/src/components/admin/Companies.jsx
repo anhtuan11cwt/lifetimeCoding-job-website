@@ -23,7 +23,7 @@ const Companies = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <div className="flex items-center justify-between my-5">
         <Input
           className="w-fit"

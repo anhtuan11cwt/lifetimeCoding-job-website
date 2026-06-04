@@ -73,7 +73,7 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
   };
 
   return (
-    <div className="mx-auto my-10 max-w-3xl px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <Button
         className="mb-5"
         onClick={() => navigate("/admin/jobs")}
@@ -198,7 +198,7 @@ const JobSetup = () => {
           params={params}
         />
       ) : (
-        <div className="mx-auto my-10 flex max-w-3xl justify-center py-16 text-sm text-muted-foreground">
+        <div className="my-10 py-16 px-6 md:px-12 lg:px-24 xl:px-40 max-w-3xl text-sm text-muted-foreground flex justify-center">
           Đang tải thông tin công việc...
         </div>
       )}

@@ -27,7 +27,7 @@ const Browse = () => {
   }, [allJobs, query]);
 
   return (
-    <div className="max-w-6xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <h1 className="font-bold text-xl my-10">
         Kết quả tìm kiếm ({filteredJobs.length})
       </h1>

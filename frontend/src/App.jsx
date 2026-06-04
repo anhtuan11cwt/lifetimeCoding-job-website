@@ -22,77 +22,79 @@ function App() {
   return (
     <>
       <Navbar />
-      <Suspense fallback={<div className="p-6 text-center">Đang tải...</div>}>
-        <Routes>
-          <Route element={<Home />} path="/" />
-          <Route element={<Login />} path="/login" />
-          <Route element={<Signup />} path="/signup" />
-          <Route element={<Jobs />} path="/jobs" />
-          <Route element={<Browse />} path="/browse" />
-          <Route element={<Profile />} path="/profile" />
-          <Route element={<JobDescription />} path="/description/:id" />
+      <main className="pt-16">
+        <Suspense fallback={<div className="p-6 text-center">Đang tải...</div>}>
+          <Routes>
+            <Route element={<Home />} path="/" />
+            <Route element={<Login />} path="/login" />
+            <Route element={<Signup />} path="/signup" />
+            <Route element={<Jobs />} path="/jobs" />
+            <Route element={<Browse />} path="/browse" />
+            <Route element={<Profile />} path="/profile" />
+            <Route element={<JobDescription />} path="/description/:id" />
 
-          {/* Admin Routes */}
-          <Route
-            element={
-              <ProtectedRoute>
-                <Companies />
-              </ProtectedRoute>
-            }
-            path="/admin/companies"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <CompanyCreate />
-              </ProtectedRoute>
-            }
-            path="/admin/companies/create"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <CompanySetup />
-              </ProtectedRoute>
-            }
-            path="/admin/companies/:id"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <AdminJobs />
-              </ProtectedRoute>
-            }
-            path="/admin/jobs"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <PostJob />
-              </ProtectedRoute>
-            }
-            path="/admin/jobs/create"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <JobSetup />
-              </ProtectedRoute>
-            }
-            path="/admin/jobs/:id"
-          />
-          <Route
-            element={
-              <ProtectedRoute>
-                <Applicants />
-              </ProtectedRoute>
-            }
-            path="/admin/jobs/:id/applicants"
-          />
+            {/* Admin Routes */}
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Companies />
+                </ProtectedRoute>
+              }
+              path="/admin/companies"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <CompanyCreate />
+                </ProtectedRoute>
+              }
+              path="/admin/companies/create"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <CompanySetup />
+                </ProtectedRoute>
+              }
+              path="/admin/companies/:id"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AdminJobs />
+                </ProtectedRoute>
+              }
+              path="/admin/jobs"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <PostJob />
+                </ProtectedRoute>
+              }
+              path="/admin/jobs/create"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <JobSetup />
+                </ProtectedRoute>
+              }
+              path="/admin/jobs/:id"
+            />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Applicants />
+                </ProtectedRoute>
+              }
+              path="/admin/jobs/:id/applicants"
+            />
 
-          <Route element={<Navigate to="/" />} path="*" />
-        </Routes>
-      </Suspense>
+            <Route element={<Navigate to="/" />} path="*" />
+          </Routes>
+        </Suspense>
+      </main>
     </>
   );
 }

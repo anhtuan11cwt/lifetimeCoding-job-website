@@ -95,7 +95,7 @@ const CompanySetup = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto my-10 px-4">
+    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
       <Button
         className="mb-5"
         onClick={() => navigate("/admin/companies")}

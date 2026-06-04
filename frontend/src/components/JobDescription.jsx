@@ -64,14 +64,14 @@ const JobDescription = () => {
 
   if (!singleJob) {
     return (
-      <div className="max-w-5xl mx-auto my-10 p-6 text-center text-gray-500">
+      <div className="my-10 py-6 px-6 md:px-12 lg:px-24 xl:px-40 text-center text-gray-500">
         Đang tải...
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto my-10 p-6">
+    <div className="my-10 py-6 px-6 md:px-12 lg:px-24 xl:px-40">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
