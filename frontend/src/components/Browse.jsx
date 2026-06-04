@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import LatestJobCards from "@/components/LatestJobCards";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 
 const Browse = () => {
@@ -27,19 +28,26 @@ const Browse = () => {
   }, [allJobs, query]);
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <h1 className="font-bold text-xl my-10">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[{ label: "Trang chủ", to: "/" }, { label: "Tìm kiếm" }]}
+      />
+      <h1 className="font-bold text-xl mb-8">
         Kết quả tìm kiếm ({filteredJobs.length})
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => <LatestJobCards job={job} key={job._id} />)
-        ) : (
-          <p className="col-span-3 text-center text-gray-500">
+      {filteredJobs.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredJobs.map((job) => (
+            <LatestJobCards job={job} key={job._id} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-20">
+          <p className="text-muted-foreground">
             Không tìm thấy công việc phù hợp
           </p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

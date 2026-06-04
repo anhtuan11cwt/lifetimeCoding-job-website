@@ -1,8 +1,10 @@
 import axios from "axios";
+import { Building, Calendar, Clock, MapPin, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { setSingleJob } from "@/redux/jobSlice";
@@ -64,91 +66,98 @@ const JobDescription = () => {
 
   if (!singleJob) {
     return (
-      <div className="my-10 py-6 px-6 md:px-12 lg:px-24 xl:px-40 text-center text-gray-500">
+      <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40 pb-10 text-muted-foreground text-center">
         Đang tải...
       </div>
     );
   }
 
+  const details = [
+    { icon: MapPin, label: "Địa điểm", value: singleJob.location },
+    { icon: Building, label: "Vai trò", value: singleJob.title },
+    { icon: Clock, label: "Kinh nghiệm", value: `${singleJob.experience} năm` },
+    {
+      icon: Calendar,
+      label: "Ngày đăng",
+      value: new Date(singleJob.createdAt).toLocaleDateString("vi-VN"),
+    },
+    {
+      icon: Users,
+      label: "Số người ứng tuyển",
+      value: `${singleJob.applications?.length || 0} người`,
+    },
+  ];
+
   return (
-    <div className="my-10 py-6 px-6 md:px-12 lg:px-24 xl:px-40">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-bold text-2xl">{singleJob.title}</h1>
-          <div className="flex items-center gap-2 mt-3">
-            <Badge className="text-blue-700 font-bold" variant="ghost">
-              {singleJob.position} Vị trí
-            </Badge>
-            <Badge className="text-[#F83002] font-bold" variant="ghost">
-              {JOB_TYPE_MAP[singleJob.jobType] || singleJob.jobType}
-            </Badge>
-            <Badge className="text-[#7209b7] font-bold" variant="ghost">
-              {singleJob.salary} triệu
-            </Badge>
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40 pb-10">
+      <Breadcrumb
+        items={[
+          { label: "Trang chủ", to: "/" },
+          { label: "Việc làm", to: "/jobs" },
+          { label: singleJob.title },
+        ]}
+      />
+      <div>
+        <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-4">
+          <div className="space-y-3">
+            <h1 className="font-bold text-2xl tracking-tight">
+              {singleJob.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge className="font-bold text-primary" variant="ghost">
+                {singleJob.position} Vị trí
+              </Badge>
+              <Badge className="font-bold text-destructive" variant="ghost">
+                {JOB_TYPE_MAP[singleJob.jobType] || singleJob.jobType}
+              </Badge>
+              <Badge className="font-bold text-primary" variant="ghost">
+                {singleJob.salary} triệu
+              </Badge>
+            </div>
+          </div>
+          <Button
+            disabled={isApplied}
+            onClick={applyJobHandler}
+            variant={isApplied ? "secondary" : "default"}
+          >
+            {isApplied ? "Đã ứng tuyển" : "Ứng tuyển ngay"}
+          </Button>
+        </div>
+
+        <div className="mt-8">
+          <h2 className="pb-3 border-border border-b font-semibold text-lg">
+            Mô tả công việc
+          </h2>
+
+          <div className="space-y-4 mt-6">
+            <p className="text-muted-foreground leading-relaxed">
+              {singleJob.description}
+            </p>
           </div>
         </div>
-        <Button
-          className={`rounded-lg ${
-            isApplied
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-[#7209b7] hover:bg-[#5f32ad]"
-          }`}
-          disabled={isApplied}
-          onClick={isApplied ? null : applyJobHandler}
-        >
-          {isApplied ? "Đã ứng tuyển" : "Ứng tuyển ngay"}
-        </Button>
-      </div>
 
-      {/* Job Description */}
-      <h1 className="border-b-2 border-b-gray-300 font-medium text-lg py-4 mt-6">
-        Mô tả công việc
-      </h1>
+        <div className="mt-8">
+          <h2 className="pb-3 border-border border-b font-semibold text-lg">
+            Thông tin chi tiết
+          </h2>
 
-      <div className="my-4 space-y-3">
-        <h1 className="font-bold my-1">
-          Vai trò:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.title}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Địa điểm:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.location}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Mô tả:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.description}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Kinh nghiệm:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.experience} năm
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Lương:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.salary} triệu
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Số người ứng tuyển:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {singleJob.applications?.length || 0} người
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Ngày đăng:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {new Date(singleJob.createdAt).toLocaleDateString("vi-VN")}
-          </span>
-        </h1>
+          <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 mt-6">
+            {details.map((detail) => (
+              <div
+                className="flex items-center gap-3 bg-muted/50 p-4 rounded-lg"
+                key={detail.label}
+              >
+                <detail.icon className="w-5 h-5 text-muted-foreground shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-muted-foreground text-xs">
+                    {detail.label}
+                  </p>
+                  <p className="font-medium text-sm truncate">{detail.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

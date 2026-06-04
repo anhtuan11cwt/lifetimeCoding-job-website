@@ -1,9 +1,9 @@
 import axios from "axios";
-import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -95,15 +95,14 @@ const CompanySetup = () => {
   };
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <Button
-        className="mb-5"
-        onClick={() => navigate("/admin/companies")}
-        variant="outline"
-      >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Quay lại
-      </Button>
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[
+          { label: "Trang chủ", to: "/" },
+          { label: "Công ty", to: "/admin/companies" },
+          { label: "Thiết lập" },
+        ]}
+      />
 
       <h1 className="font-bold text-2xl mb-6">Thiết lập công ty</h1>
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AdminJobsTable from "@/components/admin/AdminJobsTable";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useGetAllAdminJobs from "@/hooks/useGetAllAdminJobs";
@@ -19,7 +20,10 @@ const AdminJobs = () => {
   );
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[{ label: "Trang chủ", to: "/" }, { label: "Việc làm" }]}
+      />
       <div className="flex items-center justify-between my-5">
         <Input
           className="w-fit"

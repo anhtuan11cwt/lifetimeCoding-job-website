@@ -125,11 +125,11 @@
     @apply bg-background text-foreground;
   }
   html {
+    scrollbar-width: none;
     @apply font-sans;
   }
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
+  html::-webkit-scrollbar {
+    display: none;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {

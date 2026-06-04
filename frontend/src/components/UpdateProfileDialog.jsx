@@ -69,62 +69,63 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
           <DialogTitle>Cập nhật hồ sơ</DialogTitle>
         </DialogHeader>
         <form onSubmit={submitHandler}>
-          <div className="grid gap-4 py-4">
+          <div className="grid gap-5 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="fullName">
+              <Label className="text-right" htmlFor="update-fullName">
                 Họ tên
               </Label>
               <Input
                 className="col-span-3"
-                id="fullName"
+                id="update-fullName"
                 name="fullName"
                 onChange={changeEventHandler}
                 value={input.fullName}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="email">
+              <Label className="text-right" htmlFor="update-email">
                 Email
               </Label>
               <Input
                 className="col-span-3"
-                id="email"
+                id="update-email"
                 name="email"
                 onChange={changeEventHandler}
                 value={input.email}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="phoneNumber">
+              <Label className="text-right" htmlFor="update-phoneNumber">
                 Số điện thoại
               </Label>
               <Input
                 className="col-span-3"
-                id="phoneNumber"
+                id="update-phoneNumber"
                 name="phoneNumber"
                 onChange={changeEventHandler}
+                type="tel"
                 value={input.phoneNumber}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="bio">
+              <Label className="text-right" htmlFor="update-bio">
                 Giới thiệu
               </Label>
               <Input
                 className="col-span-3"
-                id="bio"
+                id="update-bio"
                 name="bio"
                 onChange={changeEventHandler}
                 value={input.bio}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right" htmlFor="skills">
+              <Label className="text-right" htmlFor="update-skills">
                 Kỹ năng
               </Label>
               <Input
                 className="col-span-3"
-                id="skills"
+                id="update-skills"
                 name="skills"
                 onChange={changeEventHandler}
                 placeholder="HTML, CSS, JavaScript"

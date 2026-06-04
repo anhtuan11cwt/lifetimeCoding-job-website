@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,10 +36,17 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[
+          { label: "Trang chủ", to: "/" },
+          { label: "Công ty", to: "/admin/companies" },
+          { label: "Tạo mới" },
+        ]}
+      />
       <div className="my-10">
         <h1 className="font-bold text-2xl">Tên công ty của bạn</h1>
-        <p className="text-gray-500 mt-2">
+        <p className="text-muted-foreground mt-2">
           Bạn muốn đặt tên công ty là gì? Bạn có thể thay đổi sau.
         </p>
       </div>

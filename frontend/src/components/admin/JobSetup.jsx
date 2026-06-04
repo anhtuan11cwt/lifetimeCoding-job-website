@@ -1,9 +1,9 @@
 import axios from "axios";
-import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -73,15 +73,14 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
   };
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
-      <Button
-        className="mb-5"
-        onClick={() => navigate("/admin/jobs")}
-        variant="outline"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Quay lại
-      </Button>
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[
+          { label: "Trang chủ", to: "/" },
+          { label: "Việc làm", to: "/admin/jobs" },
+          { label: "Chỉnh sửa" },
+        ]}
+      />
 
       <h1 className="mb-6 text-2xl font-bold">Chỉnh sửa công việc</h1>
 
@@ -198,7 +197,7 @@ const JobSetup = () => {
           params={params}
         />
       ) : (
-        <div className="my-10 py-16 px-6 md:px-12 lg:px-24 xl:px-40 max-w-3xl text-sm text-muted-foreground flex justify-center">
+        <div className="mt-5 py-16 px-6 md:px-12 lg:px-24 xl:px-40 text-sm text-muted-foreground flex justify-center">
           Đang tải thông tin công việc...
         </div>
       )}

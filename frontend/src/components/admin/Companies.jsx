@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CompaniesTable from "@/components/admin/CompaniesTable";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useGetAllCompanies from "@/hooks/useGetAllCompanies";
@@ -23,7 +24,10 @@ const Companies = () => {
   );
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[{ label: "Trang chủ", to: "/" }, { label: "Công ty" }]}
+      />
       <div className="flex items-center justify-between my-5">
         <Input
           className="w-fit"

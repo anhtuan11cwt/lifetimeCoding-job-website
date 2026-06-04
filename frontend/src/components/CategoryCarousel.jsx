@@ -29,7 +29,7 @@ const CategoryCarousel = () => {
               key={cat}
             >
               <Button
-                className="rounded-full"
+                className="rounded-full w-full"
                 onClick={() => navigate(`/jobs?query=${cat}`)}
                 variant="outline"
               >

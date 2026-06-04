@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -69,11 +70,18 @@ const PostJob = () => {
   };
 
   return (
-    <div className="my-10 px-6 md:px-12 lg:px-24 xl:px-40 max-w-3xl">
+    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[
+          { label: "Trang chủ", to: "/" },
+          { label: "Việc làm", to: "/admin/jobs" },
+          { label: "Đăng tuyển" },
+        ]}
+      />
       <h1 className="font-bold text-2xl mb-6">Đăng tuyển công việc mới</h1>
 
       {companies.length === 0 && (
-        <p className="text-red-500 mb-4">
+        <p className="text-destructive mb-4">
           Bạn cần tạo công ty trước khi đăng tuyển việc làm.
         </p>
       )}
@@ -181,7 +189,9 @@ const PostJob = () => {
               </SelectContent>
             </Select>
           ) : (
-            <p className="text-sm text-red-500">Vui lòng tạo công ty trước</p>
+            <p className="text-sm text-destructive">
+              Vui lòng tạo công ty trước
+            </p>
           )}
         </div>
 

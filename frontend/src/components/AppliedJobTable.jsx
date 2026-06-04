@@ -44,7 +44,9 @@ const AppliedJobTable = () => {
             allAppliedJobs.map((item) => (
               <TableRow key={item._id}>
                 <TableCell>{formatDate(item.createdAt)}</TableCell>
-                <TableCell>{item.job?.title || "N/A"}</TableCell>
+                <TableCell className="font-medium">
+                  {item.job?.title || "N/A"}
+                </TableCell>
                 <TableCell>{item.job?.company?.name || "N/A"}</TableCell>
                 <TableCell className="text-center">
                   <Badge variant={statusVariant[item.status] || "outline"}>
@@ -55,7 +57,10 @@ const AppliedJobTable = () => {
             ))
           ) : (
             <TableRow>
-              <TableCell className="text-center" colSpan={4}>
+              <TableCell
+                className="text-center text-muted-foreground py-8"
+                colSpan={4}
+              >
                 Chưa ứng tuyển công việc nào
               </TableCell>
             </TableRow>

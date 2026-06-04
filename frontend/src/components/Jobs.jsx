@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import FilterCard from "@/components/FilterCard";
 import Job from "@/components/Job";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 
 const Jobs = () => {
@@ -15,7 +16,6 @@ const Jobs = () => {
   const filteredJobs = useMemo(() => {
     let result = Array.isArray(allJobs) ? allJobs : [];
 
-    // Filter by search query
     if (query) {
       const lowerQuery = query.toLowerCase();
       result = result.filter(
@@ -26,12 +26,10 @@ const Jobs = () => {
       );
     }
 
-    // Filter by location
     if (filters["Địa điểm"]) {
       result = result.filter((job) => job.location === filters["Địa điểm"]);
     }
 
-    // Filter by job type/category
     if (filters["Ngành nghề"]) {
       const keyword = filters["Ngành nghề"].toLowerCase();
       result = result.filter(
@@ -46,21 +44,26 @@ const Jobs = () => {
 
   return (
     <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+      <Breadcrumb
+        items={[{ label: "Trang chủ", to: "/" }, { label: "Việc làm" }]}
+      />
       <div className="flex flex-col md:flex-row gap-5">
-        <div className="w-full md:w-[20%]">
+        <div className="w-full md:w-[260px] shrink-0">
           <FilterCard onFilterChange={setFilters} />
         </div>
-        <div className="flex-1 md:h-[88vh] overflow-y-auto pb-5">
+        <div className="flex-1 pb-5">
           {filteredJobs.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredJobs.map((job) => (
                 <Job job={job} key={job._id} />
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-500 mt-10">
-              Không tìm thấy công việc phù hợp
-            </p>
+            <div className="text-center py-20">
+              <p className="text-muted-foreground">
+                Không tìm thấy công việc phù hợp
+              </p>
+            </div>
           )}
         </div>
       </div>
