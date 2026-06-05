@@ -72,14 +72,14 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100dvh-5rem)] px-6 md:px-12 lg:px-24 xl:px-40 py-10">
+    <div className="flex justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 py-10 min-h-[calc(100dvh-5rem)]">
       <form
-        className="w-full max-w-lg bg-card border border-border rounded-xl p-8 space-y-6 shadow-sm"
+        className="space-y-6 bg-card shadow-sm p-8 border border-border rounded-xl w-full max-w-lg"
         onSubmit={handleSubmit}
       >
         <div className="space-y-1">
           <h1 className="font-bold text-2xl tracking-tight">Đăng ký</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Tạo tài khoản để bắt đầu tìm kiếm cơ hội việc làm
           </p>
         </div>
@@ -143,7 +143,7 @@ const Signup = () => {
               />
               <button
                 aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-                className="absolute inset-y-0 right-0 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground"
+                className="right-0 absolute inset-y-0 flex items-center px-3.5 text-muted-foreground hover:text-foreground transition-colors"
                 disabled={loading}
                 onClick={() => setShowPassword((value) => !value)}
                 tabIndex={-1}
@@ -159,7 +159,7 @@ const Signup = () => {
           </div>
 
           <fieldset className="pt-1">
-            <legend className="text-sm font-medium mb-2">Bạn là</legend>
+            <legend className="mb-2 font-medium text-sm">Bạn là</legend>
             <RadioGroup
               className="flex items-center gap-6"
               disabled={loading}
@@ -173,7 +173,7 @@ const Signup = () => {
                   value="student"
                 />
                 <Label
-                  className="text-sm font-normal cursor-pointer"
+                  className="font-normal text-sm cursor-pointer"
                   htmlFor="signup-student"
                 >
                   Sinh viên
@@ -186,7 +186,7 @@ const Signup = () => {
                   value="recruiter"
                 />
                 <Label
-                  className="text-sm font-normal cursor-pointer"
+                  className="font-normal text-sm cursor-pointer"
                   htmlFor="signup-recruiter"
                 >
                   Nhà tuyển dụng
@@ -199,7 +199,7 @@ const Signup = () => {
             <Label htmlFor="signup-avatar">Ảnh đại diện</Label>
             <div className="flex items-center gap-4">
               <label
-                className="relative size-16 shrink-0 rounded-full overflow-hidden border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors duration-150 cursor-pointer bg-muted flex items-center justify-center"
+                className="relative flex justify-center items-center bg-muted border-2 border-muted-foreground/30 hover:border-primary/50 border-dashed rounded-full size-16 overflow-hidden transition-colors duration-150 cursor-pointer shrink-0"
                 htmlFor="signup-avatar"
               >
                 {previewImage ? (
@@ -215,13 +215,13 @@ const Signup = () => {
               <div className="flex-1">
                 <Input
                   accept="image/*"
-                  className="cursor-pointer text-sm"
+                  className="text-sm cursor-pointer"
                   disabled={loading}
                   id="signup-avatar"
                   onChange={changeFileHandler}
                   type="file"
                 />
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="mt-1 text-muted-foreground text-xs">
                   JPG, PNG hoặc WEBP. Tối đa 5MB.
                 </p>
               </div>
@@ -231,7 +231,7 @@ const Signup = () => {
 
         {loading ? (
           <Button className="w-full" disabled>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
             Vui lòng chờ...
           </Button>
         ) : (
@@ -240,7 +240,7 @@ const Signup = () => {
           </Button>
         )}
 
-        <p className="text-sm text-center text-muted-foreground">
+        <p className="text-muted-foreground text-sm text-center">
           Đã có tài khoản?{" "}
           <Link
             className={`text-primary font-medium hover:underline ${loading ? "pointer-events-none opacity-50" : ""}`}

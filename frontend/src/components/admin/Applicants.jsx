@@ -30,7 +30,7 @@ const Applicants = () => {
   }, [params.id, dispatch]);
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
@@ -38,7 +38,7 @@ const Applicants = () => {
           { label: "Ứng viên" },
         ]}
       />
-      <h1 className="font-bold text-xl my-5">
+      <h1 className="my-5 font-bold text-xl">
         Ứng viên ({applicants?.applications?.length || 0})
       </h1>
       <ApplicantsTable />

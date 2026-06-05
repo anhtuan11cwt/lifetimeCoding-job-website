@@ -43,23 +43,23 @@ const Jobs = () => {
   }, [allJobs, query, filters]);
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[{ label: "Trang chủ", to: "/" }, { label: "Việc làm" }]}
       />
-      <div className="flex flex-col md:flex-row gap-5">
+      <div className="flex md:flex-row flex-col gap-5">
         <div className="w-full md:w-[260px] shrink-0">
           <FilterCard onFilterChange={setFilters} />
         </div>
         <div className="flex-1 pb-5">
           {filteredJobs.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+            <div className="gap-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
               {filteredJobs.map((job) => (
                 <Job job={job} key={job._id} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20">
+            <div className="py-20 text-center">
               <p className="text-muted-foreground">
                 Không tìm thấy công việc phù hợp
               </p>

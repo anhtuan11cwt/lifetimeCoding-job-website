@@ -28,21 +28,21 @@ const Browse = () => {
   }, [allJobs, query]);
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[{ label: "Trang chủ", to: "/" }, { label: "Tìm kiếm" }]}
       />
-      <h1 className="font-bold text-xl mb-8">
+      <h1 className="mb-8 font-bold text-xl">
         Kết quả tìm kiếm ({filteredJobs.length})
       </h1>
       {filteredJobs.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="gap-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredJobs.map((job) => (
             <LatestJobCards job={job} key={job._id} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-20">
+        <div className="py-20 text-center">
           <p className="text-muted-foreground">
             Không tìm thấy công việc phù hợp
           </p>

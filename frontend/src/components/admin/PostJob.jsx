@@ -70,7 +70,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
@@ -78,16 +78,16 @@ const PostJob = () => {
           { label: "Đăng tuyển" },
         ]}
       />
-      <h1 className="font-bold text-2xl mb-6">Đăng tuyển công việc mới</h1>
+      <h1 className="mb-6 font-bold text-2xl">Đăng tuyển công việc mới</h1>
 
       {companies.length === 0 && (
-        <p className="text-destructive mb-4">
+        <p className="mb-4 text-destructive">
           Bạn cần tạo công ty trước khi đăng tuyển việc làm.
         </p>
       )}
 
       <form
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="gap-4 grid grid-cols-1 md:grid-cols-2"
         onSubmit={submitHandler}
       >
         <div className="space-y-2">
@@ -173,7 +173,7 @@ const PostJob = () => {
             value={input.position}
           />
         </div>
-        <div className="md:col-span-2 space-y-2">
+        <div className="space-y-2 md:col-span-2">
           <Label>Công ty</Label>
           {companies.length > 0 ? (
             <Select onValueChange={selectChangeHandler} value={companyId}>
@@ -189,7 +189,7 @@ const PostJob = () => {
               </SelectContent>
             </Select>
           ) : (
-            <p className="text-sm text-destructive">
+            <p className="text-destructive text-sm">
               Vui lòng tạo công ty trước
             </p>
           )}

@@ -95,7 +95,7 @@ const CompanySetup = () => {
   };
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
@@ -104,7 +104,7 @@ const CompanySetup = () => {
         ]}
       />
 
-      <h1 className="font-bold text-2xl mb-6">Thiết lập công ty</h1>
+      <h1 className="mb-6 font-bold text-2xl">Thiết lập công ty</h1>
 
       <form className="space-y-4" onSubmit={submitHandler}>
         <div className="space-y-2">
@@ -150,7 +150,7 @@ const CompanySetup = () => {
             <div className="mt-2">
               <img
                 alt="Logo preview"
-                className="object-contain rounded border size-24"
+                className="border rounded size-24 object-contain"
                 src={logoPreview || singleCompany?.logo}
               />
             </div>

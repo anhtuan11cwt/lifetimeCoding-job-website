@@ -57,14 +57,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100dvh-5rem)] px-6 md:px-12 lg:px-24 xl:px-40 py-10">
+    <div className="flex justify-center items-center px-6 md:px-16 lg:px-24 xl:px-32 py-10 min-h-[calc(100dvh-5rem)]">
       <form
-        className="w-full max-w-lg bg-card border border-border rounded-xl p-8 space-y-6 shadow-sm"
+        className="space-y-6 bg-card shadow-sm p-8 border border-border rounded-xl w-full max-w-lg"
         onSubmit={handleSubmit}
       >
         <div className="space-y-1">
           <h1 className="font-bold text-2xl tracking-tight">Đăng nhập</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Đăng nhập để tiếp tục sử dụng dịch vụ
           </p>
         </div>
@@ -100,7 +100,7 @@ const Login = () => {
               />
               <button
                 aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-                className="absolute inset-y-0 right-0 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground"
+                className="right-0 absolute inset-y-0 flex items-center px-3.5 text-muted-foreground hover:text-foreground transition-colors"
                 disabled={loading}
                 onClick={() => setShowPassword((value) => !value)}
                 tabIndex={-1}
@@ -116,7 +116,7 @@ const Login = () => {
           </div>
 
           <fieldset className="pt-1">
-            <legend className="text-sm font-medium mb-2">Bạn là</legend>
+            <legend className="mb-2 font-medium text-sm">Bạn là</legend>
             <RadioGroup
               className="flex items-center gap-6"
               disabled={loading}
@@ -130,7 +130,7 @@ const Login = () => {
                   value="student"
                 />
                 <Label
-                  className="text-sm font-normal cursor-pointer"
+                  className="font-normal text-sm cursor-pointer"
                   htmlFor="login-student"
                 >
                   Sinh viên
@@ -143,7 +143,7 @@ const Login = () => {
                   value="recruiter"
                 />
                 <Label
-                  className="text-sm font-normal cursor-pointer"
+                  className="font-normal text-sm cursor-pointer"
                   htmlFor="login-recruiter"
                 >
                   Nhà tuyển dụng
@@ -155,7 +155,7 @@ const Login = () => {
 
         {loading ? (
           <Button className="w-full" disabled>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
             Vui lòng chờ...
           </Button>
         ) : (
@@ -164,7 +164,7 @@ const Login = () => {
           </Button>
         )}
 
-        <p className="text-sm text-center text-muted-foreground">
+        <p className="text-muted-foreground text-sm text-center">
           Chưa có tài khoản?{" "}
           <Link
             className={`text-primary font-medium hover:underline ${loading ? "pointer-events-none opacity-50" : ""}`}

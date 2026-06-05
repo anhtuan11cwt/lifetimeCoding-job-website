@@ -73,7 +73,7 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
   };
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
@@ -82,10 +82,10 @@ const JobSetupForm = ({ dispatch, job, navigate, params }) => {
         ]}
       />
 
-      <h1 className="mb-6 text-2xl font-bold">Chỉnh sửa công việc</h1>
+      <h1 className="mb-6 font-bold text-2xl">Chỉnh sửa công việc</h1>
 
       <form
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="gap-4 grid grid-cols-1 md:grid-cols-2"
         onSubmit={submitHandler}
       >
         <div className="space-y-2">
@@ -197,7 +197,7 @@ const JobSetup = () => {
           params={params}
         />
       ) : (
-        <div className="mt-5 py-16 px-6 md:px-12 lg:px-24 xl:px-40 text-sm text-muted-foreground flex justify-center">
+        <div className="flex justify-center mt-5 px-6 md:px-16 lg:px-24 xl:px-32 py-16 text-muted-foreground text-sm">
           Đang tải thông tin công việc...
         </div>
       )}

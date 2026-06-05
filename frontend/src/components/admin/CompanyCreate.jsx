@@ -36,7 +36,7 @@ const CompanyCreate = () => {
   };
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[
           { label: "Trang chủ", to: "/" },
@@ -46,7 +46,7 @@ const CompanyCreate = () => {
       />
       <div className="my-10">
         <h1 className="font-bold text-2xl">Tên công ty của bạn</h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="mt-2 text-muted-foreground">
           Bạn muốn đặt tên công ty là gì? Bạn có thể thay đổi sau.
         </p>
       </div>

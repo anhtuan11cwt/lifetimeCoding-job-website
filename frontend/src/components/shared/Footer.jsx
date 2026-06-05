@@ -35,17 +35,17 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-muted/30">
-      <div className="px-6 md:px-12 lg:px-24 xl:px-40 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-muted/30 border-border border-t">
+      <div className="px-6 md:px-16 lg:px-24 xl:px-32 py-12">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-3">
           <div className="space-y-3">
             <Link className="inline-flex items-center gap-2" to="/">
               <Briefcase className="text-destructive" size={24} />
-              <span className="text-xl font-bold">
+              <span className="font-bold text-xl">
                 Job<span className="text-destructive">Portal</span>
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+            <p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
               Nền tảng kết nối sinh viên và nhà tuyển dụng hàng đầu Việt Nam.
               Tìm kiếm cơ hội việc làm phù hợp với bạn.
             </p>
@@ -53,7 +53,7 @@ const Footer = () => {
               {socialLinks.map((social) => (
                 <a
                   aria-label={social.label}
-                  className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150"
+                  className="hover:bg-muted p-2 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-150"
                   href={social.href}
                   key={social.label}
                 >
@@ -65,14 +65,14 @@ const Footer = () => {
 
           {footerLinks.map((group) => (
             <div className="space-y-3" key={group.title}>
-              <h3 className="font-semibold text-sm text-foreground">
+              <h3 className="font-semibold text-foreground text-sm">
                 {group.title}
               </h3>
               <ul className="space-y-2">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <Link
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150"
+                      className="text-muted-foreground hover:text-foreground text-sm transition-colors duration-150"
                       to={link.to}
                     >
                       {link.label}
@@ -85,8 +85,8 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-border px-6 md:px-12 lg:px-24 xl:px-40 py-5">
-        <p className="text-sm text-muted-foreground text-center">
+      <div className="px-6 md:px-16 lg:px-24 xl:px-32 py-5 border-border border-t">
+        <p className="text-muted-foreground text-sm text-center">
           &copy; {new Date().getFullYear()} JobPortal. Đã đăng ký bản quyền.
         </p>
       </div>

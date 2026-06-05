@@ -15,23 +15,23 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="text-center px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="px-6 md:px-16 lg:px-24 xl:px-32 text-center">
       <div className="flex flex-col gap-5 my-10">
-        <span className="mx-auto px-4 py-2 rounded-full bg-muted text-destructive font-medium text-sm">
+        <span className="bg-muted mx-auto px-4 py-2 rounded-full font-medium text-destructive text-sm">
           Trang web tìm việc số 1
         </span>
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight">
+        <h1 className="font-bold text-3xl md:text-5xl tracking-tight">
           Tìm kiếm, Ứng tuyển & <br />
           Nhận <span className="text-primary">Công việc Mơ ước</span>
         </h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-muted-foreground">
           Nền tảng kết nối ứng viên tài năng với nhà tuyển dụng hàng đầu, giúp
           bạn tìm kiếm cơ hội việc làm phù hợp nhất với năng lực và mong muốn
           của mình.
         </p>
-        <div className="flex w-[90%] md:w-[40%] shadow-sm border border-border pl-3 rounded-full items-center gap-4 mx-auto bg-card">
+        <div className="flex items-center gap-4 bg-card shadow-sm mx-auto pl-3 border border-border rounded-full w-[90%] md:w-[40%]">
           <Input
-            className="outline-none border-none w-full shadow-none"
+            className="shadow-none border-none outline-none w-full"
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && searchJobHandler()}
             placeholder="Tìm công việc mơ ước"
@@ -43,7 +43,7 @@ const HeroSection = () => {
             className="rounded-r-full shrink-0"
             onClick={searchJobHandler}
           >
-            <Search className="h-5 w-5" />
+            <Search className="w-5 h-5" />
           </Button>
         </div>
       </div>

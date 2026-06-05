@@ -62,9 +62,9 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border px-6 md:px-12 lg:px-24 xl:px-40 py-4 flex items-center justify-between">
+    <nav className="top-0 right-0 left-0 z-50 fixed flex justify-between items-center bg-background px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-border border-b">
       <Link className="shrink-0" to="/">
-        <h1 className="text-2xl font-bold text-foreground">
+        <h1 className="font-bold text-foreground text-2xl">
           Job<span className="text-destructive">Portal</span>
         </h1>
       </Link>
@@ -100,7 +100,7 @@ const Navbar = () => {
         ) : (
           <Popover>
             <PopoverTrigger asChild>
-              <Avatar className="cursor-pointer ring-2 ring-transparent transition-all duration-150 hover:ring-primary/30">
+              <Avatar className="ring-2 ring-transparent hover:ring-primary/30 transition-all duration-150 cursor-pointer">
                 <AvatarImage
                   src={
                     user?.profile?.profilePhoto ||
@@ -110,7 +110,7 @@ const Navbar = () => {
                 <AvatarFallback>{getInitials(user?.fullName)}</AvatarFallback>
               </Avatar>
             </PopoverTrigger>
-            <PopoverContent align="end" className="w-72 p-4">
+            <PopoverContent align="end" className="p-4 w-72">
               <div className="flex items-center gap-3">
                 <Avatar className="size-10">
                   <AvatarImage
@@ -125,15 +125,15 @@ const Navbar = () => {
                   <h4 className="font-semibold text-sm truncate">
                     {user?.fullName}
                   </h4>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {user?.role === "student" ? "Sinh viên" : "Nhà tuyển dụng"}
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col mt-3 pt-3 border-t border-border gap-1">
+              <div className="flex flex-col gap-1 mt-3 pt-3 border-border border-t">
                 {user?.role === "student" && (
                   <Link
-                    className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150"
+                    className="flex items-center gap-2 hover:bg-muted px-2 py-2 rounded-lg text-muted-foreground hover:text-foreground text-sm transition-colors duration-150"
                     to="/profile"
                   >
                     <User size={16} />
@@ -141,7 +141,7 @@ const Navbar = () => {
                   </Link>
                 )}
                 <button
-                  className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150 w-full text-left"
+                  className="flex items-center gap-2 hover:bg-muted px-2 py-2 rounded-lg w-full text-muted-foreground hover:text-foreground text-sm text-left transition-colors duration-150"
                   onClick={logoutHandler}
                   type="button"
                 >
@@ -157,7 +157,7 @@ const Navbar = () => {
       {/* Mobile Menu Button */}
       <button
         aria-label={isMobileMenuOpen ? "Đóng menu" : "Mở menu"}
-        className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150"
+        className="md:hidden hover:bg-muted p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors duration-150"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         type="button"
       >
@@ -191,7 +191,7 @@ const Navbar = () => {
         </ul>
 
         {!user ? (
-          <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
+          <div className="flex flex-col gap-2 mt-4 pt-4 border-border border-t">
             <Link onClick={() => setIsMobileMenuOpen(false)} to="/login">
               <Button className="w-full" variant="outline">
                 Đăng nhập
@@ -202,7 +202,7 @@ const Navbar = () => {
             </Link>
           </div>
         ) : (
-          <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
+          <div className="flex flex-col gap-3 mt-4 pt-4 border-border border-t">
             <div className="flex items-center gap-3 px-2">
               <Avatar className="size-10">
                 <AvatarImage
@@ -217,14 +217,14 @@ const Navbar = () => {
                 <h4 className="font-semibold text-sm truncate">
                   {user?.fullName}
                 </h4>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {user?.role === "student" ? "Sinh viên" : "Nhà tuyển dụng"}
                 </p>
               </div>
             </div>
             {user?.role === "student" && (
               <Link
-                className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150"
+                className="flex items-center gap-2 hover:bg-muted px-2 py-2 rounded-lg text-muted-foreground hover:text-foreground text-sm transition-colors duration-150"
                 onClick={() => setIsMobileMenuOpen(false)}
                 to="/profile"
               >
@@ -233,7 +233,7 @@ const Navbar = () => {
               </Link>
             )}
             <button
-              className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors duration-150 w-full text-left"
+              className="flex items-center gap-2 hover:bg-muted px-2 py-2 rounded-lg w-full text-muted-foreground hover:text-foreground text-sm text-left transition-colors duration-150"
               onClick={() => {
                 logoutHandler();
                 setIsMobileMenuOpen(false);

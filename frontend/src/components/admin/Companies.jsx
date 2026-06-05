@@ -24,11 +24,11 @@ const Companies = () => {
   );
 
   return (
-    <div className="mt-5 px-6 md:px-12 lg:px-24 xl:px-40">
+    <div className="mt-5 px-6 md:px-16 lg:px-24 xl:px-32">
       <Breadcrumb
         items={[{ label: "Trang chủ", to: "/" }, { label: "Công ty" }]}
       />
-      <div className="flex items-center justify-between my-5">
+      <div className="flex justify-between items-center my-5">
         <Input
           className="w-fit"
           onChange={(e) => setInput(e.target.value)}

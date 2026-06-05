@@ -23,20 +23,20 @@ const Home = () => {
     <div>
       <HeroSection />
       <CategoryCarousel />
-      <div className="my-20 px-6 md:px-12 lg:px-24 xl:px-40">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold tracking-tight">
+      <div className="my-20 px-6 md:px-16 lg:px-24 xl:px-32">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="font-bold text-2xl tracking-tight">
             Việc làm mới và nổi bật
           </h1>
         </div>
         {allJobs.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="gap-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {allJobs.slice(0, 6).map((job) => (
               <LatestJobCards job={job} key={job._id} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
+          <div className="py-20 text-center">
             <p className="text-muted-foreground">Chưa có công việc nào</p>
           </div>
         )}
